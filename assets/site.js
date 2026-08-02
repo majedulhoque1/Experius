@@ -923,7 +923,7 @@
         .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, b: b } }) })
         .then(function (res) {
           if (res.b && res.b.ok) {
-            show('good', '<b>That is with us.</b>You will hear back from Majedul, usually the ' +
+            show('good', '<b>That is with us.</b>You will hear back from a co-founder, usually the ' +
               'same day. If it is urgent, reply to the confirmation and say so.')
             form.reset()
             return

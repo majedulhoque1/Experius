@@ -83,7 +83,7 @@ export default async function handler(req: Req, res: Res) {
 }
 
 /**
- * Sends the internal brief to Majedul. Resend is the intended transport; until
+ * Sends the internal brief to the team. Resend is the intended transport; until
  * RESEND_API_KEY exists this logs instead of silently dropping it, so a missing
  * env var is visible rather than invisible.
  */

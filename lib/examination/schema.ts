@@ -84,7 +84,7 @@ export const LeakMap = z.object({
 export type LeakMap = z.infer<typeof LeakMap>
 
 export const LeadBrief = z.object({
-  summary: z.string().describe('Two sentences for Majedul before the call.'),
+  summary: z.string().describe('Two sentences for the EXPERIUS team before the call.'),
   likelySegment: z
     .string()
     .describe('Best guess at industry or business type, or "unclear" when it is.'),
