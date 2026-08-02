@@ -3,7 +3,7 @@ import { PageHeader } from '../components/layout/PageHeader'
 import { Section } from '../components/doc/Section'
 import { Reveal } from '../components/motion/Reveal'
 
-/* Majedul is CO-FOUNDER — never "Founder". */
+/* The title is CO-FOUNDER — never "Founder". */
 
 const POSITIONS = [
   {
@@ -38,9 +38,9 @@ export default function About() {
           <Reveal>
             <div className="col-text mt-8 space-y-6 text-ink-2">
               <p className="type-lead text-ink">
-                EXPERIUS was started by Majedul Hoque, co-founder, after enough years of
-                watching good businesses buy software that did not talk to anything else
-                they owned.
+                EXPERIUS was started by its co-founder after enough years of watching
+                good businesses buy software that did not talk to anything else they
+                owned.
               </p>
               <p>
                 A website here, a booking tool there, a spreadsheet holding the whole

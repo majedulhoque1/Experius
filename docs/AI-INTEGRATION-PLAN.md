@@ -72,7 +72,7 @@ warmer lead than one who filled in a form.
 
 **2. The lead brief — same submission, second output, internal only.**
 
-The visitor gets the map. Majedul gets a brief: likely industry, indicated
+The visitor gets the map. The team gets a brief: likely industry, indicated
 modules, which seams are worst, budget signals, red flags, and *the one question
 to open the call with*. Optionally enriched by fetching their existing site or
 Facebook page and reading what is already there.
@@ -151,7 +151,7 @@ the site's conversion device and cannot depend on a third-party API being up.
 
 ### Phase 2 — the lead brief
 
-Same submission, second generation, delivered to Majedul by email or Telegram.
+Same submission, second generation, delivered to the team by email or Telegram.
 Nothing visitor-facing, so the risk is near zero and it can be iterated freely.
 
 ### Phase 3 — ask the evidence, industry variants
@@ -172,7 +172,7 @@ Vercel function  ──▶  Anthropic API (claude-opus-5)
    │                   · user turn = this visitor's marks + follow-ups
    │                   · structured output → typed map object, not free prose
    ├──▶ Supabase: insert the submission (the research dataset)
-   └──▶ Resend: email the map to the visitor, brief to Majedul
+   └──▶ Resend: email the map to the visitor, brief to the team
 
 n8n on the Coolify VPS  ──▶  weekly aggregate + self-audit jobs
 ```
@@ -216,7 +216,7 @@ which Phase 0's rate limit and spend cap exist to prevent.
 
 | Risk | Mitigation |
 |---|---|
-| A generated map says something wrong about their business | It reasons only over their own answers, hedges where they didn't answer, and is labelled a draft from a 5-minute form — not a diagnosis. Majedul reviews before the call regardless. |
+| A generated map says something wrong about their business | It reasons only over their own answers, hedges where they didn't answer, and is labelled a draft from a 5-minute form — not a diagnosis. A co-founder reviews before the call regardless. |
 | Model outage kills the conversion device | The examination works fully without AI. The map is an enhancement layered on top, never a dependency. |
 | Public endpoint gets hammered | Per-IP rate limit + monthly spend cap in code, both from day one. |
 | Collecting answers without consent | Insert-only table, no PII unless volunteered, explicit line about what the email is used for. Publishing aggregates only. |

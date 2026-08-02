@@ -29,7 +29,7 @@ The two sections are adjacent. Replace this block (currently: inquiry form, then
           <h2 class="d2 col" data-r>Tell us what is going wrong.</h2>
           <p class="lead col" data-r style="margin-top:1rem">
             A few sentences is enough. We read every one, and you will hear back from
-            Majedul — not an assistant, not an autoresponder.
+            a co-founder — not an assistant, not an autoresponder.
           </p>
         </div>
       </div>
@@ -121,7 +121,7 @@ with the sections swapped and the eyebrow labels updated so "Or write to us" cor
           <h2 class="d2 col" data-r>Tell us what is going wrong.</h2>
           <p class="lead col" data-r style="margin-top:1rem">
             A few sentences is enough. We read every one, and you will hear back from
-            Majedul — not an assistant, not an autoresponder.
+            a co-founder — not an assistant, not an autoresponder.
           </p>
         </div>
       </div>

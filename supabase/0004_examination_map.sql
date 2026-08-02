@@ -2,7 +2,7 @@
 -- Persists the two generated artefacts the pipeline was throwing away.
 --
 -- Until now the map was emailed to the visitor and the brief was emailed to
--- Majedul, and neither was stored — so the admin panel could show that a
+-- the team, and neither was stored — so the admin panel could show that a
 -- lead existed but never what they were actually told. That makes the Leads
 -- table unusable for its one job: walking into the call knowing what the
 -- visitor already has in their inbox.

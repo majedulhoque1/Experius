@@ -1,5 +1,13 @@
 import { chromium } from 'playwright'
 
+/* Credentials come from the environment — a real admin login does not belong
+   in a committed file. Set ADMIN_EMAIL and ADMIN_PASSWORD before running. */
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
+if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
+  throw new Error('set ADMIN_EMAIL and ADMIN_PASSWORD before running verify-admin')
+}
+
 const errors = []
 const browser = await chromium.launch()
 const page = await browser.newPage()
@@ -9,8 +17,8 @@ page.on('pageerror', (e) => errors.push('pageerror: ' + e.message))
 await page.goto('http://localhost:5181/', { waitUntil: 'networkidle' })
 if (!page.url().includes('/login')) throw new Error('did not redirect to /login when unauthenticated')
 
-await page.fill('#email', 'majedulhoqueofficial@gmail.com')
-await page.fill('#password', 'Majed123')
+await page.fill('#email', ADMIN_EMAIL)
+await page.fill('#password', ADMIN_PASSWORD)
 await page.click('button[type=submit]')
 await page.waitForURL('http://localhost:5181/', { timeout: 8000 })
 console.log('login OK')
