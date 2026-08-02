@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { MODULES } from './questions'
+import { MODULES } from './questions.js'
 
 /*
   The output contract.

@@ -1,4 +1,4 @@
-import { QUESTIONS, indicatedModules } from './questions'
+import { QUESTIONS, indicatedModules } from './questions.js'
 
 /*
   The AI-off path.

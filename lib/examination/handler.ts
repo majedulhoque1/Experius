@@ -1,14 +1,14 @@
-import { QUESTIONS } from './questions'
-import { deterministicResult } from './fallback'
-import { generateFollowUps, generateMap, generationAvailable, costOf, type Usage } from './generate'
+import { QUESTIONS } from './questions.js'
+import { deterministicResult } from './fallback.js'
+import { generateFollowUps, generateMap, generationAvailable, costOf, type Usage } from './generate.js'
 import {
   checkLimits,
   defaultStore,
   hashIp,
   type UsageStore,
   type ExaminationRow,
-} from './limits'
-import type { ExaminationResult, FollowUps } from './schema'
+} from './limits.js'
+import type { ExaminationResult, FollowUps } from './schema.js'
 
 /*
   Framework-agnostic orchestration, so the whole path can be exercised from a

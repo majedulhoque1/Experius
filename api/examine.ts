@@ -1,4 +1,4 @@
-import { handleExamine, type ExamineRequest } from '../lib/examination/handler'
+import { handleExamine, type ExamineRequest } from '../lib/examination/handler.js'
 
 /*
   Thin adapter. All logic lives in lib/examination/handler.ts so it can be

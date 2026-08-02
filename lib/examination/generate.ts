@@ -1,12 +1,12 @@
 import OpenAI from 'openai'
 import { z } from 'zod'
-import { ExaminationResult, FollowUps } from './schema'
+import { ExaminationResult, FollowUps } from './schema.js'
 import {
   SYSTEM_PROMPT,
   buildMapPrompt,
   buildFollowUpPrompt,
   type ExaminationInput,
-} from './prompt'
+} from './prompt.js'
 
 /*
   The only place that talks to the model.

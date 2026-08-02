@@ -1,5 +1,5 @@
-import { handleInquiry, type InquiryStore, type InquiryRow } from '../lib/inquiry/handler'
-import { hashIp } from '../lib/examination/limits'
+import { handleInquiry, type InquiryStore, type InquiryRow } from '../lib/inquiry/handler.js'
+import { hashIp } from '../lib/examination/limits.js'
 
 /* Thin adapter, same shape as api/examine.ts. Logic lives in lib/inquiry. */
 

@@ -1,4 +1,4 @@
-import { QUESTIONS, PHASE_OF, MODULES, type Question } from './questions'
+import { QUESTIONS, PHASE_OF, MODULES, type Question } from './questions.js'
 
 /*
   The system prompt is stable across every request — that is deliberate, so it
