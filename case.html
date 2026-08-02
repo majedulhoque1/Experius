@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FAFAF9">
+<title>Case file — EXPERIUS</title>
+<meta name="description" content="One EXPERIUS case file: the problem, what was built, and every figure with its provenance.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EXPERIUS">
+<meta property="og:title" content="Case file — EXPERIUS">
+<meta property="og:description" content="One EXPERIUS case file: the problem, what was built, and every figure with its provenance.">
+<meta property="og:url" content="https://experius.xyz/case">
+<meta property="og:image" content="https://experius.xyz/og-experius-v2.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://experius.xyz/og-experius-v2.png">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body data-page="case-studies">
+
+<nav data-tabs></nav>
+<main data-case></main>
+<footer data-footer></footer>
+
+<script src="/assets/data.js"></script>
+<script src="/assets/site.js"></script>
+<script>
+/*
+  One template, every case file. The id comes from the query string; the
+  content comes from data.js. Adding a project means adding a data entry,
+  not another hand-built page.
+*/
+window.PAGE = function () {
+  var id = new URLSearchParams(location.search).get('id') || 'angel-foundation'
+  var c = SITE.cases[id]
+  var host = document.querySelector('[data-case]')
+
+  if (!c) {
+    host.innerHTML =
+      '<section class="pagehead flush ph-case"><div class="wrap">' +
+      '<h1 class="d1">No file under that reference.</h1>' +
+      '<p class="lead" style="margin-top:1rem">The case you asked for is not in the cabinet.</p>' +
+      '<div class="acts"><a class="act red" href="/case-studies">Back to the case studies &rarr;</a></div>' +
+      '</div></section>'
+    return
+  }
+
+  document.title = c.name + ' — EXPERIUS case file'
+
+  var siblings = SITE.order.project.concat(SITE.order.product)
+  var i = siblings.indexOf(id)
+  var prev = siblings[(i - 1 + siblings.length) % siblings.length]
+  var next = siblings[(i + 1) % siblings.length]
+
+  /* Lead visual: the running system, at size, with the phone beside it.
+     Where no screenshot exists the reason is printed instead of a blank. */
+  var lead = c.shots.length
+    ? '<div class="gallery" data-r>' +
+        EX.shotFrame(c.shots[0]) +
+        (c.mobile
+          ? '<div class="phone"><img src="' + EX.SHOTS + c.mobile + '" alt="' + c.name + ' on a phone" loading="lazy"></div>'
+          : '') +
+      '</div>' +
+      '<p class="small" data-r style="margin-top:.7rem">' + c.shots[0].cap + '</p>'
+    : '<div class="panel" data-r style="border-color:var(--ink)">' +
+        '<h4>No screenshot published</h4><p>' + c.noShotReason + '</p></div>'
+
+  /* Remaining captures, each with what it is evidence of. */
+  var rest = c.shots.slice(1).map(function (s) {
+    return (
+      '<div data-r style="margin-top:2rem">' + EX.shotFrame(s) +
+      '<p class="small" style="margin-top:.6rem">' + s.cap + '</p></div>'
+    )
+  }).join('')
+
+  var details = c.solution.details.map(function (d) {
+    return (
+      '<div class="r"><dt>' + d[0] + '</dt><dd>' + d[1] + '</dd></div>'
+    )
+  }).join('')
+
+  var pains = c.problem.pains.map(function (p) { return '<li>' + p + '</li>' }).join('')
+
+  host.innerHTML =
+    '<section class="pagehead flush ph-case"><div class="wrap">' +
+      '<div class="eyebrow"><span class="dot"></span>' +
+        (c.kind === 'product' ? 'EXPERIUS product' : 'Client project') +
+        '<span class="sep">/</span>' + c.clientKind +
+        '<span class="sep">/</span><span class="live">' + c.status + '</span></div>' +
+      '<h1 class="d1" style="max-width:20ch">' + c.headline + '</h1>' +
+      '<div class="two" style="margin-top:1.6rem;align-items:start">' +
+        '<p class="lead">' + c.intro + '</p>' +
+        '<div><p class="small">' + c.summary + '</p>' +
+        (c.url
+          ? '<div class="acts" style="margin-top:1.2rem"><a class="act" href="' + c.url + '" target="_blank" rel="noopener">Visit ' + c.urlLabel + ' &rarr;</a></div>'
+          : '') +
+        '</div>' +
+      '</div>' +
+      '<div style="margin-top:clamp(1.8rem,3vw,2.6rem)">' + lead + '</div>' +
+    '</div></section>' +
+
+    '<section><div class="wrap">' +
+      '<div class="sec-head"><div><span class="sec-num">Part I</span></div>' +
+      '<div><h2 class="d2 col">The problem.</h2>' +
+      '<p class="col" style="margin-top:1rem;color:var(--ink-2)">' + c.problem.narrative + '</p>' +
+      '<ul class="pains col">' + pains + '</ul></div></div>' +
+    '</div></section>' +
+
+    '<section><div class="wrap">' +
+      '<div class="sec-head"><div><span class="sec-num">Part II</span></div>' +
+      '<div><h2 class="d2 col">What we built.</h2>' +
+      '<p class="col" style="margin-top:1rem;color:var(--ink-2)">' + c.solution.narrative + '</p></div></div>' +
+      '<div class="terms" data-r>' + details + '</div>' +
+      rest +
+    '</div></section>' +
+
+    '<section><div class="wrap">' +
+      '<div class="sec-head"><div><span class="sec-num">Part III</span></div>' +
+      '<div><h2 class="d2 col">The record.</h2>' +
+      '<p class="col" style="margin-top:1rem;color:var(--ink-2)">' + c.results.narrative + '</p></div></div>' +
+      '<div class="figs" data-r data-figures></div>' +
+      '<p class="small" data-r style="margin-top:1.2rem;max-width:48rem;border-left:2px solid var(--accent);padding-left:1.1rem">' +
+      '<b style="font-weight:600;color:var(--ink)">Withheld or pending.</b> ' + c.withheld + '</p>' +
+      '<blockquote class="pullquote" data-r>' + c.quote.text + '<cite>' + c.quote.attrib + '</cite></blockquote>' +
+      '<p class="lead col" data-r>' + c.conclusion + '</p>' +
+    '</div></section>' +
+
+    '<section class="statement"><div class="wrap">' +
+      '<div class="two">' +
+      '<div><span class="typed">Next step</span>' +
+      '<h2 class="d2" data-r style="max-width:14ch;margin-top:.7rem">Start with the map, not the build.</h2></div>' +
+      '<div data-r><p>The first conversation is a working session, not a pitch. Ninety minutes, ' +
+      'no slides, and you keep the map whether or not you build anything with us.</p>' +
+      '<div class="acts"><a class="act" href="/contact">Book the first meeting &rarr;</a></div></div>' +
+      '</div>' +
+    '</div></section>' +
+
+    '<section><div class="wrap"><div class="nextprev" style="border-top:none;margin-top:0">' +
+      '<a class="act" href="/case?id=' + prev + '">&larr; ' + SITE.cases[prev].name + '</a>' +
+      '<a class="act" href="/case?id=' + next + '">' + SITE.cases[next].name + ' &rarr;</a>' +
+    '</div></div></section>'
+
+  EX.renderFigures(host.querySelector('[data-figures]'), c.results.metrics)
+}
+</script>
+</body>
+</html>

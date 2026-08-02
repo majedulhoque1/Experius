@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FAFAF9">
+<title>Case studies — EXPERIUS</title>
+<meta name="description" content="Every system EXPERIUS has built, and every figure it publishes — each one carrying whether it was measured, true by construction, or still pending.">
+<link rel="canonical" href="https://experius.xyz/case-studies">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EXPERIUS">
+<meta property="og:title" content="Case studies — EXPERIUS">
+<meta property="og:description" content="Every figure EXPERIUS publishes, in one table, each one carrying its source.">
+<meta property="og:url" content="https://experius.xyz/case-studies">
+<meta property="og:image" content="https://experius.xyz/og-experius-v2.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://experius.xyz/og-experius-v2.png">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body data-page="case-studies">
+
+<nav data-tabs></nav>
+
+<main>
+  <section class="pagehead flush">
+    <div class="wrap">
+      <div class="eyebrow"><span class="dot"></span>Case studies<span class="sep">/</span>Every figure, with its source<span class="sep">/</span><span class="live">Read 30 Jul 2026</span></div>
+
+      <h1 class="d1">
+        <span class="rise"><span>Every figure here</span></span>
+        <span class="rise"><span class="it">says how it is known.</span></span>
+      </h1>
+
+      <p class="lead" data-r style="margin-top:1.5rem;max-width:44rem">
+        Most agency case studies quote numbers with no provenance, which is why nobody
+        believes them. Ours carry a column for it &mdash; and the ones we cannot yet
+        stand behind are printed as unknown rather than rounded into shape.
+      </p>
+
+      <div class="ph-counts" data-r>
+        <div><b>5</b><span>Systems, live or deploy-ready</span></div>
+        <div><b id="figcount">&mdash;</b><span>Figures published in full</span></div>
+        <div><b>3</b><span>Read from a live database</span></div>
+        <div><b>6</b><span>Printed as pending, not hidden</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── The full ledger ──────────────────────────────────────────── -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="sec-num">The ledger</span></div>
+        <div>
+          <h2 class="d2 col" data-r>The complete record.</h2>
+          <p class="col" data-r style="margin-top:1rem;color:var(--ink-2)">
+            Every number this company publishes, in one table, with its source. If a row
+            makes you want to ask "says who" — that is the column on the right.
+          </p>
+        </div>
+      </div>
+      <div style="overflow-x:auto" data-r>
+        <table class="ledger">
+          <thead><tr>
+            <th style="width:7rem">Figure</th>
+            <th>What it measures</th>
+            <th style="width:9rem">Provenance</th>
+            <th style="width:9rem">Source</th>
+          </tr></thead>
+          <tbody data-ledger></tbody>
+        </table>
+      </div>
+      <div class="legend" data-r>
+        <span><b style="color:var(--accent-deep)">Measured</b> — read from the live system on the stated date</span>
+        <span><b style="color:var(--ink-2)">By construction</b> — true because of how it is built</span>
+        <span><b style="color:var(--ink-3)">Pending</b> — instrumented, not yet meaningful</span>
+      </div>
+
+      <p class="small" data-r style="margin-top:1.6rem;max-width:48rem;border-left:2px solid var(--accent);padding-left:1.1rem">
+        <b style="font-weight:600;color:var(--ink)">What is deliberately absent.</b>
+        Noree's raw order count, because a single-digit absolute would misrepresent a
+        young store working exactly as instrumented — and because it is the client's
+        commercial data. Xen Developments' sales outcomes, for the same reason.
+        Construction OS has no screenshots at all: it holds a developer's cash-flow
+        ledger, and we will not publish somebody's books to decorate a page.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── The files ────────────────────────────────────────────────── -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="sec-num">The files</span></div>
+        <div>
+          <h2 class="d2 col" data-r>Five systems, live or ready.</h2>
+          <p class="col" data-r style="margin-top:1rem;color:var(--ink-2)">
+            Three client projects and two EXPERIUS products. Screenshots are captures of
+            the running systems, taken 30 July 2026.
+          </p>
+        </div>
+      </div>
+      <div class="exhibits" data-exhibits></div>
+      <div class="acts" data-r><a class="act red" href="/contact">Start your own file &rarr;</a></div>
+    </div>
+  </section>
+</main>
+
+<footer data-footer></footer>
+
+<script src="/assets/data.js"></script>
+<script src="/assets/site.js"></script>
+<script>
+window.PAGE = function () {
+  var ids = SITE.order.project.concat(SITE.order.product)
+  EX.renderExhibits(document.querySelector('[data-exhibits]'), ids)
+
+  /* One ledger row per metric across every case — measured first, so the
+     strongest evidence is not buried under the architectural rows. */
+  var rows = []
+  ids.forEach(function (id) {
+    var c = SITE.cases[id]
+    c.results.metrics.forEach(function (m) {
+      rows.push({ case: c.name, m: m })
+    })
+  })
+  var rank = { measured: 0, construction: 1, pending: 2 }
+  rows.sort(function (a, b) { return rank[a.m.s] - rank[b.m.s] })
+
+  var LABEL = { measured: 'Measured', construction: 'By construction', pending: 'Pending' }
+  var CLS = { measured: 'm', construction: 'c', pending: 'p' }
+
+  document.querySelector('[data-ledger]').innerHTML = rows
+    .map(function (r) {
+      return (
+        '<tr' + (r.m.s === 'pending' ? ' class="pending"' : '') + '>' +
+        '<td class="val">' + r.m.v + '</td>' +
+        '<td class="what">' + r.m.l + '<small>' + r.case + '</small></td>' +
+        '<td><span class="prov ' + CLS[r.m.s] + '">' + LABEL[r.m.s] + '</span></td>' +
+        '<td class="as">' + r.m.src + '</td></tr>'
+      )
+    })
+    .join('')
+
+  document.getElementById('figcount').textContent = rows.length
+}
+</script>
+</body>
+</html>

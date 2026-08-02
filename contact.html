@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FAFAF9">
+<title>Contact — EXPERIUS</title>
+<meta name="description" content="Ninety minutes, no slides. We trace one real enquiry through your clinic or organisation and you keep the map either way.">
+<link rel="canonical" href="https://experius.xyz/contact">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EXPERIUS">
+<meta property="og:title" content="Contact — EXPERIUS">
+<meta property="og:description" content="Ninety minutes, no slides. You keep the map either way.">
+<meta property="og:url" content="https://experius.xyz/contact">
+<meta property="og:image" content="https://experius.xyz/og-experius-v2.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://experius.xyz/og-experius-v2.png">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body data-page="contact">
+
+<nav data-tabs></nav>
+
+<main>
+  <section class="pagehead flush">
+    <div class="wrap">
+      <div class="eyebrow"><span class="dot"></span>First meeting<span class="sep">/</span>90 minutes, no slides<span class="sep">/</span><span class="live">You keep the map</span></div>
+
+      <div class="two" style="align-items:start">
+        <div>
+          <h1 class="d1">
+            <span class="rise"><span>Open a file on</span></span>
+            <span class="rise"><span class="it">your practice.</span></span>
+          </h1>
+          <p class="lead" style="margin-top:1.5rem">
+            The first conversation is a working session, not a pitch. We trace one real
+            enquiry through your clinic or organisation, end to end, exactly as it happens
+            today &mdash; and name the step that costs the most, with the arithmetic
+            written down.
+          </p>
+          <p class="small" style="margin-top:1.1rem">
+            You keep that map whether or not you ever build anything with us. We would
+            rather lose the work than win it on a guess.
+          </p>
+        </div>
+
+        <div class="ph-card" data-r>
+          <div class="h">What the first meeting is</div>
+          <div class="r"><b>Length</b><span>Ninety minutes, no slides</span></div>
+          <div class="r"><b>Cost</b><span>Nothing, and no obligation</span></div>
+          <div class="r"><b>You leave with</b><span>A one-page map of where the work leaks</span></div>
+          <div class="r"><b>Languages</b><span>English or Bangla</span></div>
+          <div class="f">
+            <a class="act red" href="mailto:hello@experius.xyz?subject=Opening%20a%20file%20-%20first%20meeting">hello@experius.xyz &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Book directly against real availability ─────────────────── -->
+  <section id="book">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="sec-num">Start here</span></div>
+        <div>
+          <h2 class="d2 col" data-r>Pick a time yourself.</h2>
+          <p class="lead col" data-r style="margin-top:1rem">
+            This calendar reads and writes against the same database our own booking system
+            runs on for clients — the slot you take is actually held, not a form that
+            emails us your preference.
+          </p>
+        </div>
+      </div>
+      <div data-r data-book></div>
+    </div>
+  </section>
+
+  <!-- ── The inquiry form ─────────────────────────────────────────── -->
+  <section id="enquire">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="sec-num">Or write to us</span></div>
+        <div>
+          <h2 class="d2 col" data-r>Tell us what is going wrong.</h2>
+          <p class="lead col" data-r style="margin-top:1rem">
+            A few sentences is enough. We read every one, and you will hear back from
+            Majedul — not an assistant, not an autoresponder.
+          </p>
+        </div>
+      </div>
+
+      <form class="enquiry" data-inquiry novalidate>
+        <div class="enq-grid">
+          <label class="enq-field">
+            <span>Your name</span>
+            <input type="text" name="name" autocomplete="name" placeholder="Rafiq Hasan" required>
+            <em data-err="name"></em>
+          </label>
+          <label class="enq-field">
+            <span>Email</span>
+            <input type="email" name="email" autocomplete="email" placeholder="you@yourpractice.com" required>
+            <em data-err="email"></em>
+          </label>
+        </div>
+        <label class="enq-field">
+          <span>Clinic, charity or business <i>optional</i></span>
+          <input type="text" name="business" autocomplete="organization" placeholder="Clinic, charity, jeweller&hellip;">
+        </label>
+        <label class="enq-field">
+          <span>What is going wrong?</span>
+          <textarea name="message" rows="5" required
+            placeholder="Enquiries arrive on Facebook and the desk answers them in the evening. Half the time nobody follows up."></textarea>
+          <em data-err="message"></em>
+        </label>
+
+        <!-- Honeypot: hidden from people, irresistible to bots. -->
+        <label class="enq-trap" aria-hidden="true" tabindex="-1">
+          Website<input type="text" name="website" tabindex="-1" autocomplete="off">
+        </label>
+
+        <div class="enq-foot">
+          <button class="act red" type="submit">Send it &rarr;</button>
+          <span class="enq-note">No list, no sequence. We reply or we do not — nothing else happens.</span>
+        </div>
+        <div class="enq-status" data-status hidden></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ── The examination, again — it is the qualifier ─────────────── -->
+  <section id="exam">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="sec-num">Before we speak</span></div>
+        <div>
+          <h2 class="d2 col" data-r>Bring this with you.</h2>
+          <p class="lead col" data-r style="margin-top:1rem">
+            Tick what is true of your business today. It takes a minute, it runs entirely
+            in your browser, and it is the first thing we would ask you anyway — so the
+            meeting can start at the second question instead of the first.
+          </p>
+        </div>
+      </div>
+      <div class="exam" data-r data-exam></div>
+    </div>
+  </section>
+
+  <!-- ── Terms ────────────────────────────────────────────────────── -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="sec-num">Terms</span></div>
+        <div><h2 class="d2 col" data-r>What the first meeting is.</h2></div>
+      </div>
+      <div class="terms" data-r>
+        <div class="r"><dt>What happens</dt><dd>We trace one real enquiry through your practice, end to end, exactly as it happens today — not as the process document says it happens.</dd></div>
+        <div class="r"><dt>What you leave with</dt><dd>A one-page map of where the work leaks, which step costs the most, and what each leak is worth over a year.</dd></div>
+        <div class="r"><dt>What it costs</dt><dd>Nothing, and there is no obligation. If a build is not the right answer, we will say so in the meeting.</dd></div>
+        <div class="r"><dt>If a build follows</dt><dd>Fixed scope, written down before anything starts, with a care plan attached to it.</dd></div>
+        <div class="r"><dt>Who you deal with</dt><dd>Majedul Hoque, co-founder, is in the meeting and stays on the engagement.</dd></div>
+        <div class="r"><dt>Languages</dt><dd>English or Bangla, whichever you would rather think in.</dd></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Routes ───────────────────────────────────────────────────── -->
+  <section class="statement">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="sec-num">Routes</span></div>
+        <div>
+          <h2 class="d2" data-r style="max-width:16ch">Both routes are live.</h2>
+          <div class="col" data-r style="margin-top:1.3rem">
+            <p>The form above writes a record, notifies a person, and tells you plainly if
+            it could not — in which case it hands you back everything you typed as an
+            email rather than swallowing it.</p>
+            <p>The calendar books straight into the same database our own booking system
+            runs on for clients — the slot is genuinely held the moment you request it,
+            confirmed by phone.</p>
+            <p class="key" style="margin-top:1.2rem">A contact form that quietly fails is
+            the precise failure this whole company exists to remove. That is why ours
+            reports the failure instead of claiming a success it did not achieve.</p>
+            <div class="acts">
+              <a class="act" href="mailto:hello@experius.xyz?subject=Opening%20a%20file%20-%20first%20meeting">hello@experius.xyz &rarr;</a>
+              <a class="act" href="/case-studies">See the evidence first &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer data-footer></footer>
+
+<script src="/assets/data.js"></script>
+<script src="/assets/site.js"></script>
+<script>
+window.PAGE = function () {
+  EX.bookingWidget(document.querySelector('[data-book]'))
+  EX.examination(document.querySelector('[data-exam]'))
+}
+</script>
+</body>
+</html>

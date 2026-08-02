@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EXPERIUS — V5 The Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Chivo:wght@300;400;500;600&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   V5 — THE BLUEPRINT
+   Premise: EXPERIUS builds systems, so the site is a set of drawings.
+   A real sheet border, a title block, dimension lines that measure the
+   headline, a schedule of works, and — the signature — an exploded
+   axonometric of the six modules resolving onto one shared record.
+   The revision table in the footer is the care-plan argument, drawn.
+   ══════════════════════════════════════════════════════════════════════ */
+
+:root{
+  --sheet:#F1F2EF;
+  --sheet-2:#E7E9E4;
+  --ink:#15181A;
+  --ink-2:#414A4E;
+  --ink-3:#6E7A7F;
+  --ink-4:#9FAAAE;
+  --grid:#D3DAD9;
+  --key:#FC463C;
+  --blue:#0E262F;
+  --blue-2:#16323D;
+  --cyan:#7FB6C6;
+  --rule:rgba(21,24,26,.20);
+  --rule-soft:rgba(21,24,26,.10);
+  --display:'Syne',system-ui,sans-serif;
+  --sans:'Chivo',system-ui,sans-serif;
+  --mono:'Chivo Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  background:var(--sheet);color:var(--ink);
+  font-family:var(--sans);font-weight:400;font-size:16.5px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;overflow-x:clip;
+}
+/* Drafting paper: a fine grid with a heavier one every fifth line. */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+    linear-gradient(rgba(211,218,217,.55) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(211,218,217,.55) 1px,transparent 1px);
+  background-size:120px 120px,120px 120px,24px 24px,24px 24px;
+  opacity:.55;
+}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--key);color:#fff}
+:focus-visible{outline:2px solid var(--key);outline-offset:3px}
+
+/* The sheet border. */
+.frame{position:fixed;inset:10px;border:1px solid var(--rule);z-index:2;pointer-events:none}
+.frame span{position:absolute;width:14px;height:14px;border:0 solid var(--ink)}
+.frame span:nth-child(1){top:-1px;left:-1px;border-top-width:2px;border-left-width:2px}
+.frame span:nth-child(2){top:-1px;right:-1px;border-top-width:2px;border-right-width:2px}
+.frame span:nth-child(3){bottom:-1px;left:-1px;border-bottom-width:2px;border-left-width:2px}
+.frame span:nth-child(4){bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px}
+@media(max-width:700px){.frame{display:none}}
+
+.wrap{width:min(78rem,100% - 3.4rem);margin-inline:auto;position:relative;z-index:3}
+.col{max-width:38rem}
+
+/* ── Type ───────────────────────────────────────────────────────────── */
+.mono{font-family:var(--mono);font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.mono b{color:var(--key);font-weight:500}
+.d1{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,6.6vw,6.4rem);line-height:.95;letter-spacing:-.035em;text-transform:uppercase}
+.d2{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3.4vw,3.2rem);line-height:1;letter-spacing:-.03em;text-transform:uppercase}
+.d3{font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;text-transform:uppercase;line-height:1.1}
+.lead{font-size:1.0625rem;color:var(--ink-2);line-height:1.7;max-width:40rem}
+
+/* ── Header ─────────────────────────────────────────────────────────── */
+.head{position:sticky;top:0;z-index:30;background:rgba(241,242,239,.94);border-bottom:1px solid var(--rule)}
+.head .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:1.5rem}
+.head .id{display:flex;align-items:center;gap:.65rem}
+.head .id svg{width:23px;color:var(--ink)}
+.head .id b{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-transform:uppercase}
+.head nav{display:none;gap:1.6rem}
+@media(min-width:960px){.head nav{display:flex}}
+.head nav a{font-family:var(--mono);font-size:.625rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);transition:color .3s var(--ease)}
+.head nav a:hover,.head nav a.on{color:var(--key)}
+.head .sheetno{font-family:var(--mono);font-size:.625rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+
+/* ── Title block, pinned like a real drawing ────────────────────────── */
+.titleblock{
+  position:fixed;right:26px;bottom:26px;z-index:25;display:none;
+  border:1px solid var(--ink);background:var(--sheet);width:15.5rem;
+}
+@media(min-width:1240px){.titleblock{display:block}}
+.titleblock .tb-h{padding:.45rem .65rem;border-bottom:1px solid var(--ink);display:flex;justify-content:space-between;gap:.5rem;align-items:center}
+.titleblock .tb-h b{font-family:var(--display);font-weight:800;font-size:.8125rem;letter-spacing:-.01em;text-transform:uppercase}
+.titleblock .tb-h svg{width:17px;color:var(--ink)}
+.tb-r{display:grid;grid-template-columns:4.6rem minmax(0,1fr);border-bottom:1px solid var(--rule-soft)}
+.tb-r:last-child{border-bottom:none}
+.tb-r dt{font-family:var(--mono);font-size:.5625rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:.35rem .5rem;border-right:1px solid var(--rule-soft)}
+.tb-r dd{font-family:var(--mono);font-size:.625rem;padding:.35rem .5rem;color:var(--ink)}
+.tb-r dd.k{color:var(--key)}
+
+/* ── Hero ───────────────────────────────────────────────────────────── */
+.hero{padding:clamp(3.2rem,6.5vw,6rem) 0 clamp(2.6rem,4.5vw,4rem)}
+.clip{display:block;overflow:hidden;padding-bottom:.03em}
+.clip>span{display:block;white-space:nowrap;transform:translateY(104%);transition:transform 1s var(--ease)}
+.ready .clip>span{transform:translateY(0)}
+.d1 .out{-webkit-text-stroke:1.5px var(--ink);color:transparent}
+
+/* Dimension line — measures the headline like a drawing */
+.dim{
+  display:flex;align-items:center;gap:.75rem;margin-top:1.4rem;max-width:34rem;
+  opacity:0;transform:translateY(6px);transition:opacity .9s var(--ease) .95s,transform .9s var(--ease) .95s;
+}
+.ready .dim{opacity:1;transform:none}
+.dim .arrow{width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent}
+.dim .arrow.l{border-right:7px solid var(--ink-3)}
+.dim .arrow.r{border-left:7px solid var(--ink-3)}
+.dim .ln{flex:1;height:1px;background:var(--ink-3)}
+.dim .txt{font-family:var(--mono);font-size:.625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
+/* Narrow sheets: the label wraps rather than shoving the right arrowhead
+   off the page. Keeps the dimension-line reading intact. */
+@media(max-width:620px){
+  .dim .txt{white-space:normal;text-align:center}
+  .dim .ln{min-width:.7rem}
+}
+
+.hero-grid{display:grid;gap:2.2rem;margin-top:2.6rem}
+@media(min-width:960px){.hero-grid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:4rem}}
+.hero-acts{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2rem}
+.btn{
+  display:inline-flex;align-items:center;gap:.65rem;padding:.8rem 1.25rem;
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--ink);color:var(--ink);
+  transition:background .3s var(--ease),color .3s var(--ease),gap .3s var(--ease);
+}
+.btn:hover{background:var(--ink);color:var(--sheet);gap:1rem}
+.btn.key{background:var(--key);border-color:var(--key);color:#fff}
+.btn.key:hover{background:transparent;color:var(--key)}
+.spec{border-top:1px solid var(--ink);margin-top:.4rem}
+.spec div{display:grid;grid-template-columns:6.5rem minmax(0,1fr);gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--rule-soft)}
+.spec dt{font-family:var(--mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.spec dd{font-size:.875rem;color:var(--ink-2)}
+
+/* ── Sections ───────────────────────────────────────────────────────── */
+section{padding:clamp(3.6rem,6.5vw,6.2rem) 0;border-top:1px solid var(--rule)}
+.sec-bar{display:flex;align-items:baseline;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.4rem}
+.sec-bar .n{font-family:var(--mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--key)}
+.two{display:grid;gap:2.2rem}
+@media(min-width:940px){.two{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4rem}}
+.two p{color:var(--ink-2);margin-bottom:1.15rem}
+.two p.key{color:var(--ink);font-size:1.0625rem;border-left:2px solid var(--key);padding-left:1.1rem}
+
+/* ── Phases ─────────────────────────────────────────────────────────── */
+.phases{display:grid;gap:0;border-top:1px solid var(--ink);margin-top:.5rem}
+.ph{display:grid;gap:.6rem 3rem;padding:1.9rem 0;border-bottom:1px solid var(--rule-soft);align-items:start}
+@media(min-width:860px){.ph{grid-template-columns:5rem 13rem minmax(0,1fr)}}
+.ph .ref{font-family:var(--mono);font-size:.6875rem;color:var(--ink-4);padding-top:.3rem;transition:color .35s var(--ease)}
+.ph:hover .ref{color:var(--key)}
+.ph h3{font-family:var(--display);font-weight:700;font-size:1.55rem;letter-spacing:-.028em;text-transform:uppercase;line-height:1}
+.ph h3 span{display:block;font-family:var(--mono);font-size:.625rem;letter-spacing:.11em;color:var(--ink-3);margin-top:.55rem;text-transform:uppercase}
+.ph p{color:var(--ink-2);font-size:.9375rem}
+
+/* ── SIGNATURE: exploded axonometric ────────────────────────────────── */
+.axonbox{overflow-x:auto;scrollbar-width:none;margin-top:1rem}
+.axonbox::-webkit-scrollbar{display:none}
+.axon{width:100%;min-width:680px;height:auto;display:block}
+.axon .plate{transition:transform 1.15s var(--ease)}
+.axon .face{fill:var(--sheet-2);stroke:var(--ink-2);stroke-width:1.1}
+.axon .edge{fill:#D9DDD8;stroke:var(--ink-2);stroke-width:1.1}
+.axon .rec .face{fill:rgba(252,70,60,.16);stroke:var(--key)}
+.axon .rec .edge{fill:rgba(252,70,60,.3);stroke:var(--key)}
+.axon .lead{stroke:var(--ink-4);stroke-width:1;stroke-dasharray:3 3;opacity:0;transition:opacity .6s var(--ease)}
+.axon .dot{fill:var(--ink-3);opacity:0;transition:opacity .6s var(--ease)}
+.axon .lab{font-family:'Chivo',sans-serif;font-size:15px;font-weight:600;fill:var(--ink);opacity:0;transition:opacity .6s var(--ease)}
+.axon .sub{font-family:'Chivo Mono',monospace;font-size:10.5px;letter-spacing:.09em;fill:var(--ink-3);text-transform:uppercase;opacity:0;transition:opacity .6s var(--ease)}
+.axon .rec-lab{fill:var(--key)}
+.exploded .axon .lead,.exploded .axon .dot,.exploded .axon .lab,.exploded .axon .sub{opacity:1}
+.axon .scale{stroke:var(--ink-3);stroke-width:1}
+.axon .scaletxt{font-family:'Chivo Mono',monospace;font-size:10px;letter-spacing:.08em;fill:var(--ink-3)}
+.axon-note{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:1.2rem}
+.axon-note span{font-family:var(--mono);font-size:.625rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+
+/* ── Schedule of works ──────────────────────────────────────────────── */
+.sched{width:100%;border-collapse:collapse;margin-top:.5rem}
+.sched th{
+  font-family:var(--mono);font-size:.5625rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:400;text-align:left;padding:0 1rem .65rem 0;border-bottom:1px solid var(--ink);
+}
+.sched td{padding:1rem 1rem 1rem 0;border-bottom:1px solid var(--rule-soft);vertical-align:top;font-size:.9375rem;color:var(--ink-2)}
+.sched .ref{font-family:var(--mono);font-size:.6875rem;color:var(--ink-4);white-space:nowrap}
+.sched .item{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.02em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+.sched .phase{font-family:var(--mono);font-size:.5625rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+.sched tr:hover td{background:rgba(21,24,26,.03)}
+@media(max-width:760px){
+  .sched thead{display:none}
+  .sched tr{display:grid;grid-template-columns:1fr auto;gap:.25rem .8rem;padding:1rem 0;border-bottom:1px solid var(--rule-soft)}
+  .sched td{border:none;padding:0}
+  .sched td:nth-child(4){grid-column:1/-1;order:4;margin-top:.35rem}
+  .sched td:nth-child(1){order:1}.sched td:nth-child(2){order:2;grid-column:1}
+  .sched td:nth-child(3){order:3;text-align:right}
+}
+
+/* ── As-built figures ───────────────────────────────────────────────── */
+.asbuilt{display:grid;gap:1px;background:var(--rule-soft);border:1px solid var(--rule)}
+@media(min-width:640px){.asbuilt{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.asbuilt{grid-template-columns:repeat(4,1fr)}}
+.ab{background:var(--sheet);padding:1.4rem 1.2rem;display:flex;flex-direction:column;gap:.55rem;min-height:10.5rem}
+.ab .v{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,3.6vw,2.9rem);line-height:.92;letter-spacing:-.045em}
+.ab.pend .v{color:var(--ink-4)}
+.ab p{font-size:.8125rem;color:var(--ink-2);line-height:1.5;flex:1}
+.ab .src{font-family:var(--mono);font-size:.5625rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);padding-top:.55rem;border-top:1px solid var(--rule-soft)}
+.ab .src.m{color:var(--key)}
+
+/* ── Blueprint negative ─────────────────────────────────────────────── */
+.negative{
+  background:var(--blue);color:#DCE6EA;border-top:none;position:relative;overflow:hidden;
+}
+.negative::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(127,182,198,.16) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(127,182,198,.16) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.negative .wrap{position:relative;z-index:2}
+.negative .mono{color:rgba(220,230,234,.55)}
+.negative .sec-bar .n{color:var(--key)}
+.negative .d2{color:#EEF4F6}
+.negative p{color:rgba(220,230,234,.76);margin-bottom:1.15rem}
+.negative p.key{color:#fff;border-left:2px solid var(--key);padding-left:1.1rem;font-size:1.0625rem}
+.negative .btn{border-color:rgba(220,230,234,.5);color:#EEF4F6}
+.negative .btn:hover{background:#EEF4F6;color:var(--blue)}
+
+/* ── Revisions — the care plan, drawn as a drawing would show it ────── */
+.rev{width:100%;border-collapse:collapse;margin-top:1.6rem}
+.rev th{font-family:var(--mono);font-size:.5625rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(220,230,234,.5);font-weight:400;text-align:left;padding:0 1rem .55rem 0;border-bottom:1px solid rgba(220,230,234,.35)}
+.rev td{padding:.75rem 1rem .75rem 0;border-bottom:1px solid rgba(220,230,234,.14);font-size:.875rem;color:rgba(220,230,234,.8);vertical-align:top}
+.rev .r{font-family:var(--mono);font-size:.6875rem;color:var(--cyan);white-space:nowrap}
+.rev .d{font-family:var(--mono);font-size:.6875rem;color:rgba(220,230,234,.6);white-space:nowrap}
+.rev tr.next td{color:#fff}
+.rev tr.next .r{color:var(--key)}
+
+/* ── Issue for construction ─────────────────────────────────────────── */
+.issue-list{counter-reset:i;border-top:1px solid var(--ink);margin-top:1.6rem}
+.issue-list li{counter-increment:i;list-style:none;display:grid;gap:.3rem 2rem;padding:1.15rem 0;border-bottom:1px solid var(--rule-soft)}
+@media(min-width:760px){.issue-list li{grid-template-columns:4.5rem minmax(0,1fr)}}
+.issue-list li::before{content:'0' counter(i);font-family:var(--mono);font-size:.6875rem;color:var(--key);padding-top:.2rem}
+.issue-list li span{color:var(--ink-2);font-size:.9375rem}
+
+/* ── Footer ─────────────────────────────────────────────────────────── */
+footer{border-top:1px solid var(--ink);padding:2.4rem 0 3rem}
+.foot{display:grid;gap:2rem}
+@media(min-width:860px){.foot{grid-template-columns:1.6fr 1fr 1fr 1fr}}
+.foot h4{font-family:var(--mono);font-size:.5625rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.75rem}
+.foot li{list-style:none;font-size:.875rem;color:var(--ink-2);padding:.16rem 0}
+.foot li a:hover{color:var(--key)}
+.foot p{font-size:.875rem;color:var(--ink-3);max-width:22rem}
+.footbar{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:2.4rem;padding-top:.9rem;border-top:1px solid var(--rule-soft)}
+.footbar span{font-family:var(--mono);font-size:.5625rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-4)}
+
+[data-r]{opacity:0;transform:translateY(15px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+[data-r].in{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+  [data-r]{opacity:1!important;transform:none!important}
+  .clip>span{transform:none!important}
+  .dim{opacity:1!important;transform:none!important}
+  .axon .plate{transform:none!important}
+  .axon .lead,.axon .dot,.axon .lab,.axon .sub{opacity:1!important}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ex" viewBox="0 0 507 366"><path d="M0 0 H144 L216 72 H0 Z"/><path d="M0 147 H291 L327 183 L291 219 H0 Z"/><path d="M0 293 H216 L144 365 H0 Z"/><path d="M257 0 H504 L380.5 129 Z"/><path d="M257 365 H504 L380.5 237 Z"/></symbol></svg>
+
+<div class="frame" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+<aside class="titleblock" aria-hidden="true">
+  <div class="tb-h"><b>Experius</b><svg fill="currentColor" viewBox="0 0 507 366"><use href="#ex"/></svg></div>
+  <dl>
+    <div class="tb-r"><dt>Project</dt><dd>Your operating system</dd></div>
+    <div class="tb-r"><dt>Sheet</dt><dd>A-01 of 01</dd></div>
+    <div class="tb-r"><dt>Scale</dt><dd>1 : 1</dd></div>
+    <div class="tb-r"><dt>Issued</dt><dd>2026-07-30</dd></div>
+    <div class="tb-r"><dt>Status</dt><dd class="k">For construction</dd></div>
+  </dl>
+</aside>
+
+<div class="head">
+  <div class="wrap">
+    <a class="id" href="#top"><svg fill="currentColor" viewBox="0 0 507 366"><use href="#ex"/></svg><b>Experius</b></a>
+    <nav>
+      <a href="#survey">A-01 Survey</a>
+      <a href="#sequence">A-02 Sequence</a>
+      <a href="#assembly">A-03 Assembly</a>
+      <a href="#schedule">A-04 Schedule</a>
+      <a href="#asbuilt">A-05 As-built</a>
+      <a href="#maintenance">A-06 Maintenance</a>
+    </nav>
+    <span class="sheetno">Sheet A-01</span>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- ── Hero ─────────────────────────────────────────────────────── -->
+  <section class="hero" style="border-top:none">
+    <div class="wrap">
+      <p class="mono" style="margin-bottom:1.6rem">Drawing set — <b>Strategize · Systemize · Automate</b> — issued in sequence</p>
+      <h1 class="d1">
+        <span class="clip"><span>Businesses don't</span></span>
+        <span class="clip"><span class="out">get built</span></span>
+        <span class="clip"><span>by accident.</span></span>
+      </h1>
+
+      <div class="dim">
+        <span class="arrow l"></span><span class="ln"></span>
+        <span class="txt">Three phases · one structure · no step skipped</span>
+        <span class="ln"></span><span class="arrow r"></span>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <p class="lead">
+            Yours already has a structure — it just wasn't drawn. It accumulated: a tool
+            here when something broke, a spreadsheet there when something got missed, and
+            an owner in the middle holding the joins together by hand. We draw the whole
+            thing, build it as one system, and stay on to keep revising it.
+          </p>
+          <div class="hero-acts">
+            <a class="btn key" href="#issue">Book a strategy call &rarr;</a>
+            <a class="btn" href="#asbuilt">See the as-built figures &rarr;</a>
+          </div>
+        </div>
+        <dl class="spec" data-r>
+          <div><dt>Discipline</dt><dd>Systems for service businesses — web, booking, records, automation, analytics</dd></div>
+          <div><dt>Method</dt><dd>Strategize, then systemize, then automate. The order is enforced, not preferred</dd></div>
+          <div><dt>Handover</dt><dd>There isn't one. Every build is issued with a care plan attached</dd></div>
+          <div><dt>Practice</dt><dd>Dhaka, Bangladesh — working globally</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── A-01 Survey ──────────────────────────────────────────────── -->
+  <section id="survey">
+    <div class="wrap">
+      <div class="sec-bar"><span class="n">A-01 / Site survey</span><span class="mono">Existing conditions</span></div>
+      <div class="two">
+        <div data-r><h2 class="d2" style="max-width:13ch">The fault is never where the crack shows.</h2></div>
+        <div data-r>
+          <p>A clinic loses bookings and concludes it needs more marketing. In fact the
+          front desk is retyping the same patient into three places, and the enquiry that
+          arrived at nine at night was never seen at all.</p>
+          <p>Survey your own site before reading further. Count the enquiries that arrived
+          after 9pm last month, then count how many got an answer before 10am. That
+          difference is not a marketing number — it is structural. Advertising will not
+          move it; it sends more people down the same corridor.</p>
+          <p class="key">We have yet to open an engagement where the presenting complaint
+          turned out to be the actual constraint.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── A-02 Sequence ────────────────────────────────────────────── -->
+  <section id="sequence">
+    <div class="wrap">
+      <div class="sec-bar"><span class="n">A-02 / Sequence of works</span><span class="mono">Out of order = rework</span></div>
+      <h2 class="d2" data-r style="max-width:20ch">You cannot automate a process nobody has defined.</h2>
+      <p class="lead" data-r style="margin-top:1.2rem">
+        Automation applied to an undefined process does not save time. It makes the mess
+        arrive faster, and with more confidence. So it is scheduled last — always.
+      </p>
+      <div class="phases">
+        <article class="ph" data-r>
+          <span class="ref">PH-01</span>
+          <div><h3>Strategize<span>Survey &amp; setting out</span></h3></div>
+          <p>We map how work really moves — where enquiries arrive, where they stall, and which step quietly costs the most. Most businesses do not have a growth problem. They have a structure problem, usually three steps upstream of the pain.</p>
+        </article>
+        <article class="ph" data-r>
+          <span class="ref">PH-02</span>
+          <div><h3>Systemize<span>Structure &amp; frame</span></h3></div>
+          <p>Scattered tools are the tax. The spreadsheet-and-inbox arrangement is replaced by a single spine: one place enquiries land, one calendar with real availability, one record per client that every screen reads from.</p>
+        </article>
+        <article class="ph" data-r>
+          <span class="ref">PH-03</span>
+          <div><h3>Automate<span>Services &amp; fit-out</span></h3></div>
+          <p>Only now does routine work run itself — follow-ups that fire without being remembered, notifications that reach the right person, an assistant that answers at 2am in the customer's own language, Bangla included.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── A-03 SIGNATURE: exploded assembly ────────────────────────── -->
+  <section id="assembly">
+    <div class="wrap">
+      <div class="sec-bar"><span class="n">A-03 / Exploded assembly</span><span class="mono">Six modules · one record</span></div>
+      <h2 class="d2" data-r style="max-width:18ch">Six parts. They were never separate.</h2>
+      <p class="lead" data-r style="margin-top:1.2rem">
+        This is the whole difference between a system and a stack of subscriptions. The
+        booking form writes the record the dashboard reads from; the automation fires off
+        that same record. Nothing is integrated afterwards, because nothing was ever apart.
+      </p>
+
+      <div class="axonbox" id="axonbox" data-r>
+        <svg class="axon" viewBox="0 0 800 660" role="img" aria-label="Exploded axonometric drawing: six modules resolving onto one shared record">
+          <!-- plates are drawn at their exploded positions; JS releases them -->
+          <g class="plate" data-i="0" style="transform:translateY(220px)">
+            <polygon class="edge" points="90,120 445,120 445,130 90,130"/>
+            <polygon class="face" points="90,110 219.9,35 445,35 315.1,110"/>
+            <polygon class="face" points="90,110 219.9,35 219.9,45 90,120" style="fill:#E1E4DF"/>
+            <polygon class="face" points="315.1,110 445,35 445,45 315.1,120" style="fill:#DCE0DA"/>
+          </g>
+          <g class="plate" data-i="1" style="transform:translateY(165px)">
+            <polygon class="edge" points="90,198 445,198 445,208 90,208"/>
+            <polygon class="face" points="90,188 219.9,113 445,113 315.1,188"/>
+          </g>
+          <g class="plate" data-i="2" style="transform:translateY(110px)">
+            <polygon class="edge" points="90,276 445,276 445,286 90,286"/>
+            <polygon class="face" points="90,266 219.9,191 445,191 315.1,266"/>
+          </g>
+          <g class="plate" data-i="3" style="transform:translateY(55px)">
+            <polygon class="edge" points="90,354 445,354 445,364 90,364"/>
+            <polygon class="face" points="90,344 219.9,269 445,269 315.1,344"/>
+          </g>
+          <g class="plate" data-i="4" style="transform:translateY(0px)">
+            <polygon class="edge" points="90,432 445,432 445,442 90,442"/>
+            <polygon class="face" points="90,422 219.9,347 445,347 315.1,422"/>
+          </g>
+          <g class="plate" data-i="5" style="transform:translateY(-55px)">
+            <polygon class="edge" points="90,510 445,510 445,520 90,520"/>
+            <polygon class="face" points="90,500 219.9,425 445,425 315.1,500"/>
+          </g>
+          <g class="plate rec" data-i="6" style="transform:translateY(-110px)">
+            <polygon class="edge" points="90,594 445,594 445,610 90,610"/>
+            <polygon class="face" points="90,584 219.9,509 445,509 315.1,584"/>
+          </g>
+
+          <!-- leaders + labels -->
+          <g>
+            <line class="lead" x1="450" y1="72" x2="530" y2="72"/><circle class="dot" cx="450" cy="72" r="2.5"/>
+            <text class="lab" x="540" y="69">Intelligent website</text><text class="sub" x="540" y="86">Module 01 — the front door</text>
+
+            <line class="lead" x1="450" y1="150" x2="530" y2="150"/><circle class="dot" cx="450" cy="150" r="2.5"/>
+            <text class="lab" x="540" y="147">AI assistant</text><text class="sub" x="540" y="164">Module 02 — answers at 2am, in Bangla</text>
+
+            <line class="lead" x1="450" y1="228" x2="530" y2="228"/><circle class="dot" cx="450" cy="228" r="2.5"/>
+            <text class="lab" x="540" y="225">Booking &amp; CRM</text><text class="sub" x="540" y="242">Module 03 — real availability, real locking</text>
+
+            <line class="lead" x1="450" y1="306" x2="530" y2="306"/><circle class="dot" cx="450" cy="306" r="2.5"/>
+            <text class="lab" x="540" y="303">Workflow automation</text><text class="sub" x="540" y="320">Module 04 — the copy-paste removed</text>
+
+            <line class="lead" x1="450" y1="384" x2="530" y2="384"/><circle class="dot" cx="450" cy="384" r="2.5"/>
+            <text class="lab" x="540" y="381">Analytics</text><text class="sub" x="540" y="398">Module 05 — numbers that decide something</text>
+
+            <line class="lead" x1="450" y1="462" x2="530" y2="462"/><circle class="dot" cx="450" cy="462" r="2.5"/>
+            <text class="lab" x="540" y="459">Content ecosystem</text><text class="sub" x="540" y="476">Module 06 — compounds instead of resetting</text>
+
+            <line class="lead" x1="450" y1="546" x2="530" y2="546"/><circle class="dot" cx="450" cy="546" r="2.5"/>
+            <text class="lab rec-lab" x="540" y="543">One shared record</text><text class="sub" x="540" y="560">Foundation — everything writes here</text>
+          </g>
+
+          <!-- scale bar -->
+          <g>
+            <line class="scale" x1="90" y1="640" x2="250" y2="640"/>
+            <line class="scale" x1="90" y1="635" x2="90" y2="645"/>
+            <line class="scale" x1="170" y1="636" x2="170" y2="644"/>
+            <line class="scale" x1="250" y1="635" x2="250" y2="645"/>
+            <text class="scaletxt" x="262" y="644">MODULES ADDED IN ANY ORDER — FOUNDATION FIRST</text>
+          </g>
+        </svg>
+      </div>
+      <div class="axon-note" data-r>
+        <span>— Start with one module</span>
+        <span>— Add the rest without a rebuild</span>
+        <span style="color:var(--key)">■ Foundation is never optional</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── A-04 Schedule ────────────────────────────────────────────── -->
+  <section id="schedule">
+    <div class="wrap">
+      <div class="sec-bar"><span class="n">A-04 / Schedule of works</span><span class="mono">Priced per module, delivered as one</span></div>
+      <table class="sched" data-r>
+        <thead><tr><th style="width:5.5rem">Ref</th><th style="width:15rem">Item</th><th style="width:8rem">Phase</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="ref">M-01</td><td class="item">Intelligent Website</td><td class="phase">Strategize</td><td>The front door of an operating system, not a brochure that happens to have a contact form.</td></tr>
+          <tr><td class="ref">M-02</td><td class="item">Content Ecosystem</td><td class="phase">Strategize</td><td>A publishing system that compounds, instead of campaigns that reset to zero every month.</td></tr>
+          <tr><td class="ref">M-03</td><td class="item">Booking &amp; CRM</td><td class="phase">Systemize</td><td>Real availability, real slot locking, one record per client — so nothing double-books and nothing goes missing.</td></tr>
+          <tr><td class="ref">M-04</td><td class="item">Analytics</td><td class="phase">Systemize</td><td>The numbers that decide something: where enquiries come from, where they stall, what converts.</td></tr>
+          <tr><td class="ref">M-05</td><td class="item">Workflow Automation</td><td class="phase">Automate</td><td>The cross-tool plumbing that removes the copy-paste work quietly draining your team every week.</td></tr>
+          <tr><td class="ref">M-06</td><td class="item">AI Chatbots</td><td class="phase">Automate</td><td>Assistants that qualify and route enquiries in your voice — and in Bangla when that is what the customer speaks.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── A-05 As-built ────────────────────────────────────────────── -->
+  <section id="asbuilt">
+    <div class="wrap">
+      <div class="sec-bar"><span class="n">A-05 / As-built record</span><span class="mono">Every figure states its source</span></div>
+      <h2 class="d2" data-r style="max-width:18ch">Measured, or true by construction. Never estimated.</h2>
+      <p class="lead" data-r style="margin:1.2rem 0 2.2rem">
+        An as-built drawing records what was actually put in, not what was intended.
+        Same rule here: figures read from a live database carry the date they were read,
+        figures that are true by construction say so, and the ones we cannot yet stand
+        behind are printed as unknown.
+      </p>
+
+      <div class="asbuilt" data-r>
+        <div class="ab"><span class="v">1,161</span><p>Pageviews on Noree Jewellery — first-party, cookieless, in the brand's own database</p><span class="src m">Measured · 30 Jul 2026</span></div>
+        <div class="ab"><span class="v">34%</span><p>Of product views became add-to-carts (51 of 152) across seven weeks of real trading</p><span class="src m">Measured · 30 Jul 2026</span></div>
+        <div class="ab"><span class="v">94%</span><p>Image payload removed — 179.8MB down to 11.5MB, compressed at upload time</p><span class="src">By construction</span></div>
+        <div class="ab"><span class="v">138</span><p>Products in a structured catalogue: 10 types, 7 categories, 3 collections</p><span class="src">By construction</span></div>
+        <div class="ab"><span class="v">24/7</span><p>Angel Foundation now takes its own consultation bookings — intake was a Facebook inbox</p><span class="src">By construction</span></div>
+        <div class="ab"><span class="v">1</span><p>Ledger for Construction OS: cash flow, phase budgets and flat-level sales in one record</p><span class="src">By construction</span></div>
+        <div class="ab"><span class="v">04</span><p>Systems live or deploy-ready across clients and EXPERIUS products</p><span class="src">By construction</span></div>
+        <div class="ab pend"><span class="v">—</span><p>Cart-to-order completion after the abandonment work. Identified, not yet fixed</p><span class="src">Pending · re-measure Oct 2026</span></div>
+      </div>
+
+      <p class="mono" data-r style="margin-top:1.4rem;text-transform:none;letter-spacing:0;font-size:.8125rem;line-height:1.7;max-width:52rem">
+        Noree's raw order count is deliberately withheld: a single-digit absolute would
+        misrepresent a young store working exactly as instrumented, and it is the client's
+        commercial data, not ours to broadcast.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── A-06 Maintenance (blueprint negative) ────────────────────── -->
+  <section id="maintenance" class="negative">
+    <div class="wrap">
+      <div class="sec-bar"><span class="n">A-06 / Maintenance &amp; revisions</span><span class="mono">No naked builds</span></div>
+      <div class="two">
+        <div data-r>
+          <h2 class="d2" style="max-width:14ch">A launch is the worst the system will ever be.</h2>
+          <a class="btn" href="#issue" style="margin-top:1.8rem">How the partnership works &rarr;</a>
+        </div>
+        <div data-r>
+          <p>On the day it goes live, a system has no data. Nobody knows yet which step
+          loses people, which message gets ignored, or which report the owner actually
+          opens. Everything useful is learned afterwards.</p>
+          <p>Which is why most agencies are structured badly for you. They are paid to
+          leave — issue the drawings, invoice, move on. Nobody returns to see whether the
+          building works in the rain.</p>
+          <p class="key">We would rather be paid to stay. Every build is issued with a
+          care plan, and revisions are the point rather than an admission.</p>
+        </div>
+      </div>
+
+      <table class="rev" data-r>
+        <thead><tr><th style="width:4.5rem">Rev</th><th style="width:8rem">Issued</th><th>What changed after launch</th></tr></thead>
+        <tbody>
+          <tr><td class="r">A</td><td class="d">At launch</td><td>System issued for construction. No data yet — every assumption still unproven.</td></tr>
+          <tr><td class="r">B</td><td class="d">+ 4 weeks</td><td>First real traffic read. The step that actually loses people is identified, usually not the one anyone predicted.</td></tr>
+          <tr><td class="r">C</td><td class="d">+ 8 weeks</td><td>Copy, flow and automation revised against measured behaviour rather than opinion.</td></tr>
+          <tr class="next"><td class="r">D</td><td class="d">Ongoing</td><td>Care plan. The months after launch are when the system earns back what it cost — this is the part most agencies are not paid to do.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── Issue for construction ───────────────────────────────────── -->
+  <section id="issue">
+    <div class="wrap">
+      <div class="sec-bar"><span class="n">Issue for construction</span><span class="mono">90 minutes · no slides</span></div>
+      <div class="two">
+        <div data-r>
+          <h2 class="d2" style="max-width:13ch">Start with the survey, not the build.</h2>
+          <p class="lead" style="margin-top:1.2rem">
+            The first conversation is a working session, not a pitch. You keep the drawing
+            whether or not you build anything with us — we would rather lose the work than
+            win it on a guess.
+          </p>
+          <div class="hero-acts">
+            <a class="btn key" href="mailto:hello@experius.xyz">hello@experius.xyz &rarr;</a>
+          </div>
+        </div>
+        <ol class="issue-list" data-r>
+          <li><span>We trace one real enquiry through your business, end to end, exactly as it happens today.</span></li>
+          <li><span>We mark the step that costs the most — with the arithmetic written down, not asserted.</span></li>
+          <li><span>You leave with a one-page drawing of where the work leaks and what it is worth to fix.</span></li>
+          <li><span>If a build follows: fixed scope, care plan attached. If it shouldn't, we say so in the meeting.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <svg fill="currentColor" viewBox="0 0 507 366" style="width:30px;margin-bottom:.9rem"><use href="#ex"/></svg>
+        <p>EXPERIUS builds the operating systems service businesses run on — then stays
+        on to keep revising them. Strategize, systemize, automate.</p>
+      </div>
+      <div><h4>Drawings</h4><ul><li><a href="#survey">A-01 Survey</a></li><li><a href="#sequence">A-02 Sequence</a></li><li><a href="#assembly">A-03 Assembly</a></li></ul></div>
+      <div><h4>Record</h4><ul><li><a href="#schedule">A-04 Schedule</a></li><li><a href="#asbuilt">A-05 As-built</a></li><li><a href="#maintenance">A-06 Maintenance</a></li></ul></div>
+      <div><h4>Practice</h4><ul><li><a href="mailto:hello@experius.xyz">hello@experius.xyz</a></li><li>Dhaka, Bangladesh</li><li>Working globally</li></ul></div>
+    </div>
+    <div class="footbar">
+      <span>© 2026 Experius</span>
+      <span>Sheet A-01 of 01 · Scale 1:1</span>
+      <span>Set in Syne &amp; Chivo</span>
+      <span>As-built figures read 2026-07-30</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(reduce){ document.body.classList.add('ready'); }
+  else{
+    document.querySelectorAll('.clip > span').forEach(function(l,i){
+      l.style.transitionDelay = (0.12 + i*0.09) + 's';
+    });
+    setTimeout(function(){ document.body.classList.add('ready'); }, 60);
+  }
+
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -10% 0px',threshold:.08});
+  document.querySelectorAll('[data-r]').forEach(function(n){ io.observe(n); });
+
+  /* The assembly explodes when it comes into view — plates release from the
+     foundation upward, then the leader lines and labels resolve. */
+  var box = document.getElementById('axonbox');
+  var plates = box.querySelectorAll('.plate');
+  if(reduce){
+    plates.forEach(function(p){ p.style.transform = 'none'; });
+    box.classList.add('exploded');
+  } else {
+    var aio = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        plates.forEach(function(p, i){
+          var order = plates.length - 1 - i;      /* foundation first */
+          setTimeout(function(){ p.style.transform = 'translateY(0px)'; }, order * 95);
+        });
+        setTimeout(function(){ box.classList.add('exploded'); }, plates.length * 95 + 350);
+        aio.disconnect();
+      });
+    },{threshold:.2});
+    aio.observe(box);
+  }
+
+  /* Header marks the sheet you are on. */
+  var links = document.querySelectorAll('.head nav a');
+  var secs = Array.prototype.map.call(links, function(a){ return document.querySelector(a.getAttribute('href')); });
+  var sio = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var i = secs.indexOf(e.target);
+      links.forEach(function(l,j){ l.classList.toggle('on', j===i); });
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(function(s){ if(s) sio.observe(s); });
+})();
+</script>
+</body>
+</html>

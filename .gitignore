@@ -1,0 +1,42 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.*
+docs/.env
+
+# Working captures, not build inputs. The site ships public/shots/opt (see
+# SHOTS_SRC in scripts/build-site.mjs); .shots/ is 69 MB of intermediate
+# audit/variant screenshots that would sit in history forever and slow every
+# clone and CI build for nothing.
+.shots/
+*.png
+!public/**/*.png
+!admin/**/*.png
+
+# Playwright MCP session dumps — regenerated every run.
+.playwright-mcp/
+
+# Machine-local agent settings.
+.claude/settings.local.json
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

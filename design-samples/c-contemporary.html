@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sample C — Contemporary Grotesque</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFBF9; --panel:#111113; --ink:#111113; --ink2:#55555C; --ink3:#8A8A93;
+  --coral:#FC463C; --line:#E6E6E2;
+  --display:'Bricolage Grotesque',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{width:min(1240px,100% - 8vw);margin-inline:auto}
+.label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+h1,h2,h3,h4{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:.94}
+
+nav{position:sticky;top:0;z-index:9;background:rgba(251,251,249,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.03em;text-decoration:none;color:var(--ink)}
+.navlinks{display:flex;gap:24px}
+.navlinks a{font-size:14px;color:var(--ink2);text-decoration:none;font-weight:500}
+.navlinks a:hover{color:var(--coral)}
+.book{font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--coral);padding-bottom:2px}
+
+/* Hero — asymmetric, oversized, with an offset coral slab */
+.hero{padding:clamp(50px,7vw,110px) 0 0;position:relative;overflow:hidden}
+h1{font-size:clamp(52px,10.5vw,158px)}
+.mark{display:inline-block;background:var(--coral);color:#fff;padding:0 .12em .06em;transform:rotate(-1.4deg)}
+.heroGrid{display:grid;gap:36px;margin-top:clamp(34px,4vw,60px);grid-template-columns:1fr}
+@media(min-width:920px){.heroGrid{grid-template-columns:1fr 1fr;gap:72px;align-items:end}}
+.lede{font-size:clamp(18px,1.35vw,21px);color:var(--ink2);max-width:44ch}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;padding:15px 26px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14.5px;margin-top:26px}
+.cta:hover{background:var(--coral)}
+
+/* Method — dark panel, big numerals bleeding */
+.panel{background:var(--panel);color:#fff;border-radius:22px;margin-top:clamp(56px,7vw,110px);padding:clamp(32px,4.4vw,72px)}
+.mrow{display:grid;gap:34px;grid-template-columns:1fr}
+@media(min-width:880px){.mrow{grid-template-columns:repeat(3,1fr);gap:44px}}
+.mrow .k{font-family:var(--display);font-weight:800;font-size:clamp(44px,4.6vw,72px);line-height:.8;color:var(--coral);letter-spacing:-.05em}
+.mrow h3{font-size:clamp(24px,2.2vw,32px);margin-top:18px;color:#fff}
+.mrow p{margin-top:12px;color:#A6A6AE;font-size:15.5px;max-width:34ch}
+
+/* Figures */
+.figs{margin-top:clamp(56px,7vw,110px)}
+h2{font-size:clamp(36px,5.4vw,84px)}
+.figGrid{display:grid;gap:2px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:40px;grid-template-columns:1fr}
+@media(min-width:760px){.figGrid{grid-template-columns:repeat(3,1fr)}}
+.fig{background:var(--paper);padding:30px 28px}
+.figNum{font-family:var(--display);font-weight:800;font-size:clamp(44px,5.2vw,70px);line-height:.9;letter-spacing:-.05em}
+.figNum sup{font-family:var(--body);font-size:14px;color:var(--coral);font-weight:700;vertical-align:super}
+.figLab{margin-top:12px;color:var(--ink2);font-size:15px}
+.tag{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--coral)}
+.notes{margin-top:24px;font-size:13.5px;color:var(--ink3);display:grid;gap:5px}
+.notes b{color:var(--coral);margin-right:8px}
+
+/* Work */
+.work{margin-top:clamp(56px,7vw,110px);padding-bottom:clamp(64px,8vw,120px)}
+.item{display:grid;grid-template-columns:1fr;gap:8px;padding:26px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+@media(min-width:840px){.item{grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:center}}
+.item h4{font-size:clamp(26px,3vw,44px)}
+.item:hover h4{color:var(--coral)}
+.item p{color:var(--ink2);font-size:15.5px;margin-top:8px;max-width:58ch}
+.arrow{font-size:22px;color:var(--coral)}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#"><svg width="19" viewBox="0 0 507 366" fill="currentColor"><path d="M0 0H144l72 72H0z"/><path d="M0 147h291l36 36-36 36H0z"/><path d="M0 293h216l-72 72H0z"/><path d="M257 0h247L380.5 129z"/><path d="M257 365h247L380.5 237z"/></svg>Experius</a>
+  <div class="navlinks"><a href="#">Work</a><a href="#">Products</a><a href="#">Personal Brand</a><a href="#">Partnership</a><a href="#">About</a></div>
+  <a class="book" href="#">Book a call</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <p class="label">Strategize · Systemize · Automate</p>
+  <h1 style="margin-top:20px">The system your<br>business <span class="mark">runs on.</span></h1>
+  <div class="heroGrid">
+    <p class="lede">Most businesses don't have a growth problem. They have six tools that don't speak to each other, and an owner acting as the integration layer between them.</p>
+    <div>
+      <p class="lede" style="color:var(--ink)">We build the one system underneath — website, booking, records, automation, numbers — and then we stay on, because a system nobody tends stops earning inside a year.</p>
+      <a class="cta" href="#">Book a strategy call →</a>
+    </div>
+  </div>
+</div></header>
+
+<section class="wrap"><div class="panel">
+  <p class="label" style="color:#8A8A93">The method — strictly in this order</p>
+  <div class="mrow" style="margin-top:34px">
+    <div><div class="k">01</div><h3>Strategize</h3><p>We map how work really moves — where enquiries arrive, where they stall, which step quietly costs the most.</p></div>
+    <div><div class="k">02</div><h3>Systemize</h3><p>One place enquiries land, one calendar, one record per client that every screen reads from.</p></div>
+    <div><div class="k">03</div><h3>Automate</h3><p>Last, on purpose. Automating an undefined process only makes the mess arrive faster.</p></div>
+  </div>
+</div></section>
+
+<section class="wrap figs">
+  <h2>What the record shows.</h2>
+  <div class="figGrid">
+    <div class="fig"><span class="tag">Measured</span><div class="figNum" style="margin-top:12px">245<sup>1</sup></div><p class="figLab">Unique visitors to Noree, 12 Jun – 30 Jul 2026</p></div>
+    <div class="fig"><span class="tag">Measured</span><div class="figNum" style="margin-top:12px">34%<sup>2</sup></div><p class="figLab">Product views that became add-to-carts</p></div>
+    <div class="fig"><span class="tag">By construction</span><div class="figNum" style="margin-top:12px">13<sup>3</sup></div><p class="figLab">Admin screens replacing an inbox and a paper diary</p></div>
+  </div>
+  <div class="notes">
+    <div><b>1</b>Read from the live system, 2026-07-30.</div>
+    <div><b>2</b>51 of 152 product views. Read from the live system.</div>
+    <div><b>3</b>True by construction — admin route table.</div>
+  </div>
+</section>
+
+<section class="wrap work">
+  <h2 style="margin-bottom:30px">Selected work.</h2>
+  <a class="item" href="#"><div><h4>Angel Foundation</h4><p>A charity whose entire intake ran through a Facebook inbox now takes consultation bookings itself, around the clock.</p></div><span class="arrow">→</span></a>
+  <a class="item" href="#"><div><h4>Noree Jewellery</h4><p>A storefront with its own order-to-invoice pipeline and first-party analytics — which is how we know where it loses sales.</p></div><span class="arrow">→</span></a>
+  <a class="item" href="#"><div><h4>Construction OS</h4><p>Where the money actually went, tracked to the individual flat — cash flow, phase budgets and sales ledgers in one system.</p></div><span class="arrow">→</span></a>
+</section>
+
+</body></html>

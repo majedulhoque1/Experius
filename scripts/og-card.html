@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OG card source</title>
+<!--
+  Rendered to public/og-experius-v2.png by scripts/make-og.mjs. It pulls the
+  real stylesheet rather than restating the palette, so the card cannot drift
+  away from the site it represents. Served over HTTP so /assets resolves.
+-->
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+  body{width:1200px;height:630px;overflow:hidden}
+  .card{width:1200px;height:630px;display:flex;flex-direction:column;background:var(--bg)}
+  .strip{
+    height:52px;flex:none;background:var(--surface-2);border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;padding:0 56px;
+    font-family:var(--ui);font-size:17px;font-weight:500;color:var(--ink-3);letter-spacing:.02em;
+  }
+  .strip b{color:var(--ink);font-weight:600}
+  .strip .r{display:flex;align-items:center;gap:11px}
+  .strip .r i{width:9px;height:9px;background:var(--accent);display:block}
+  .body{flex:1;padding:44px 56px 0;display:flex;flex-direction:column}
+  .mark{display:flex;align-items:center;gap:13px}
+  .mark svg{width:40px;color:var(--ink)}
+  .mark b{font-family:var(--ui);font-weight:700;font-size:27px;letter-spacing:.01em;color:var(--ink)}
+  h1{
+    font-family:var(--serif);font-weight:400;font-size:78px;line-height:1.02;
+    letter-spacing:-.024em;color:var(--ink);margin-top:42px;max-width:19ch;
+  }
+  h1 em{font-style:italic}
+  .foot{
+    margin-top:auto;border-top:2px solid var(--ink);padding:22px 0 40px;
+    display:flex;align-items:baseline;justify-content:space-between;
+    font-family:var(--ui);font-size:19px;font-weight:500;color:var(--ink-2);
+  }
+  .foot .url{font-weight:700;color:var(--ink);font-size:21px}
+  .foot .hot{color:var(--accent-deep);font-weight:600}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="strip">
+    <span>Operating systems for <b>clinics</b>, <b>charities</b> and the people who run them</span>
+    <span class="r"><i></i>Dhaka, working globally</span>
+  </div>
+  <div class="body">
+    <div class="mark">
+      <svg viewBox="0 0 507 366" fill="currentColor" aria-hidden="true">
+        <path d="M0 0 H144 L216 72 H0 Z"/><path d="M0 147 H291 L327 183 L291 219 H0 Z"/>
+        <path d="M0 293 H216 L144 365 H0 Z"/><path d="M257 0 H504 L380.5 129 Z"/>
+        <path d="M257 365 H504 L380.5 237 Z"/>
+      </svg>
+      <b>EXPERIUS</b>
+    </div>
+    <h1>Clinics and charities lose people at a step <em>nobody watches.</em></h1>
+    <div class="foot">
+      <span class="url">experius.xyz</span>
+      <span>Strategize &middot; Systemize &middot; Automate &nbsp;&nbsp;<span class="hot">Every build ships with a care plan</span></span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

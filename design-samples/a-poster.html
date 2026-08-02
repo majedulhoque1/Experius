@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sample A — Poster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111114; --paper:#FFFFFF; --coral:#FC463C; --grey:#6B6B72; --line:#E4E4E7;
+  --display:'Anton',sans-serif; --body:'Inter Tight',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{width:min(1280px,100% - 8vw);margin-inline:auto}
+.label{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+
+/* Masthead */
+nav{border-bottom:2px solid var(--ink);position:sticky;top:0;background:var(--paper);z-index:9}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+nav a{color:var(--ink);text-decoration:none}
+.navlinks{display:flex;gap:28px}
+.navlinks a{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.navlinks a:hover{color:var(--coral)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:20px;letter-spacing:.02em}
+
+/* Hero */
+.hero{padding:clamp(48px,7vw,104px) 0 0}
+h1{font-family:var(--display);font-size:clamp(64px,13.5vw,208px);line-height:.82;letter-spacing:-.015em;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--coral)}
+.heroGrid{display:grid;gap:40px;margin-top:52px;grid-template-columns:1fr}
+@media(min-width:900px){.heroGrid{grid-template-columns:1.15fr .85fr;gap:64px}}
+.lede{font-size:clamp(19px,1.5vw,23px);line-height:1.45;max-width:34ch}
+.cta{display:inline-block;background:var(--coral);color:#fff;padding:16px 30px;text-decoration:none;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-top:28px}
+.cta:hover{background:var(--ink)}
+
+/* Coral band */
+.band{background:var(--coral);color:#fff;margin-top:clamp(56px,7vw,96px);padding:clamp(40px,5vw,72px) 0}
+.bandRow{display:grid;gap:36px;grid-template-columns:1fr}
+@media(min-width:800px){.bandRow{grid-template-columns:repeat(3,1fr);gap:48px}}
+.bandRow h3{font-family:var(--display);font-size:clamp(30px,3.4vw,50px);line-height:.95;text-transform:uppercase;letter-spacing:-.01em}
+.bandRow p{margin-top:14px;font-size:15.5px;line-height:1.5;opacity:.94;max-width:34ch}
+.num{font-family:var(--display);font-size:14px;opacity:.7}
+
+/* Figures */
+.figs{padding:clamp(56px,7vw,104px) 0}
+.figGrid{display:grid;gap:0;grid-template-columns:1fr;border-top:2px solid var(--ink)}
+@media(min-width:760px){.figGrid{grid-template-columns:repeat(3,1fr)}}
+.fig{padding:32px 0;border-bottom:1px solid var(--line)}
+@media(min-width:760px){.fig{padding:36px 32px;border-right:1px solid var(--line)}.fig:first-child{padding-left:0}.fig:last-child{border-right:0;padding-right:0}}
+.figNum{font-family:var(--display);font-size:clamp(52px,6vw,84px);line-height:.85;letter-spacing:-.02em}
+.figNum sup{font-family:var(--body);font-size:15px;color:var(--coral);font-weight:600;vertical-align:super}
+.figLab{margin-top:14px;font-size:15px;color:var(--grey);max-width:26ch}
+.notes{margin-top:34px;font-size:13px;color:var(--grey);display:grid;gap:6px}
+.notes b{color:var(--coral);font-weight:600;margin-right:8px}
+
+/* Work */
+.work{border-top:2px solid var(--ink);padding:clamp(48px,6vw,88px) 0 clamp(64px,8vw,120px)}
+.item{display:grid;gap:8px;grid-template-columns:1fr;padding:28px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+@media(min-width:800px){.item{grid-template-columns:auto 1fr auto;gap:36px;align-items:baseline}}
+.item h4{font-family:var(--display);font-size:clamp(28px,3vw,44px);text-transform:uppercase;line-height:1;letter-spacing:-.01em}
+.item:hover h4{color:var(--coral)}
+.item .k{font-family:var(--display);color:var(--coral);font-size:18px}
+.item p{color:var(--grey);font-size:15.5px;max-width:52ch}
+h2{font-family:var(--display);font-size:clamp(38px,5.5vw,86px);line-height:.9;text-transform:uppercase;letter-spacing:-.015em}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#"><svg width="22" viewBox="0 0 507 366" fill="currentColor"><path d="M0 0H144l72 72H0z"/><path d="M0 147h291l36 36-36 36H0z"/><path d="M0 293h216l-72 72H0z"/><path d="M257 0h247L380.5 129z"/><path d="M257 365h247L380.5 237z"/></svg>EXPERIUS</a>
+  <div class="navlinks"><a href="#">Work</a><a href="#">Products</a><a href="#">Personal Brand</a><a href="#">Partnership</a><a href="#">About</a></div>
+  <a href="#" class="label" style="color:var(--coral)">Book a call</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <p class="label" style="color:var(--grey)">Strategize &nbsp;·&nbsp; Systemize &nbsp;·&nbsp; Automate</p>
+  <h1 style="margin-top:22px">The system<br>your business<br>runs <em>on.</em></h1>
+  <div class="heroGrid">
+    <div>
+      <p class="lede">Most businesses don't have a growth problem. They have six tools that don't speak to each other — and an owner acting as the integration layer between them.</p>
+      <a href="#" class="cta">Book a strategy call</a>
+    </div>
+    <div>
+      <p style="font-size:15px;color:var(--grey);max-width:32ch">We build the one system underneath — website, booking, records, automation, numbers — then stay on and keep improving it.</p>
+    </div>
+  </div>
+</div></header>
+
+<section class="band"><div class="wrap">
+  <p class="label" style="opacity:.75">The method — strictly in this order</p>
+  <div class="bandRow" style="margin-top:34px">
+    <div><span class="num">01</span><h3>Strategize</h3><p>We map how work really moves — where enquiries arrive, where they stall, which step quietly costs the most.</p></div>
+    <div><span class="num">02</span><h3>Systemize</h3><p>One place enquiries land, one calendar, one record per client that every screen reads from.</p></div>
+    <div><span class="num">03</span><h3>Automate</h3><p>Last, on purpose. Automating an undefined process just makes the mess arrive faster.</p></div>
+  </div>
+</div></section>
+
+<section class="figs"><div class="wrap">
+  <h2>What the<br>record shows.</h2>
+  <div class="figGrid" style="margin-top:44px">
+    <div class="fig"><div class="figNum">245<sup>1</sup></div><p class="figLab">Unique visitors to Noree, 12 Jun – 30 Jul 2026</p></div>
+    <div class="fig"><div class="figNum">34%<sup>2</sup></div><p class="figLab">Product views that became add-to-carts</p></div>
+    <div class="fig"><div class="figNum">13<sup>3</sup></div><p class="figLab">Admin screens replacing an inbox and a paper diary</p></div>
+  </div>
+  <div class="notes">
+    <div><b>1</b>Read from the live system, 2026-07-30.</div>
+    <div><b>2</b>51 of 152 product views. Read from the live system.</div>
+    <div><b>3</b>True by construction — admin route table.</div>
+  </div>
+</div></section>
+
+<section class="work"><div class="wrap">
+  <h2 style="margin-bottom:36px">Selected work.</h2>
+  <a class="item" href="#"><span class="k">01</span><div><h4>Angel Foundation</h4><p>A charity whose entire intake ran through a Facebook inbox now takes consultation bookings itself, around the clock.</p></div><span class="label" style="color:var(--grey)">Live</span></a>
+  <a class="item" href="#"><span class="k">02</span><div><h4>Noree Jewellery</h4><p>A storefront with its own order-to-invoice pipeline and first-party analytics — which is how we know where it loses sales.</p></div><span class="label" style="color:var(--grey)">Live</span></a>
+  <a class="item" href="#"><span class="k">03</span><div><h4>Construction OS</h4><p>Where the money actually went, tracked to the individual flat — cash flow, phase budgets and sales ledgers in one system.</p></div><span class="label" style="color:var(--grey)">Live</span></a>
+</div></section>
+
+</body></html>

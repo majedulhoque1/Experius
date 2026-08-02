@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EXPERIUS — V2 The Maison</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   V2 — THE MAISON
+   Premise: EXPERIUS as a house, not an agency. Classical symmetry, a
+   didone display, enormous air. The accent appears three times in the
+   whole document and never on a button. Restraint is the argument:
+   a firm this quiet is not chasing you.
+   ══════════════════════════════════════════════════════════════════════ */
+
+:root{
+  --bone:#F3EFE8;
+  --bone-2:#E9E3D8;
+  --ink:#191612;
+  --ink-2:#463F36;
+  --ink-3:#6B6457;   /* darkened: was #7C7568, which failed 4.5:1 on bone */
+  --ink-4:#A49B8A;
+  --rule:rgba(25,22,18,.16);
+  --rule-soft:rgba(25,22,18,.09);
+  --coral:#FC463C;
+  --display:'Bodoni Moda',Didot,Georgia,serif;
+  --sans:'Jost',system-ui,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  background:var(--bone);color:var(--ink);
+  font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.72;
+  -webkit-font-smoothing:antialiased;overflow-x:clip;
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:90;
+  background:radial-gradient(120% 80% at 50% 0%,rgba(255,255,255,.5),transparent 55%),
+             radial-gradient(100% 60% at 50% 110%,rgba(25,22,18,.06),transparent 60%);
+}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--ink);color:var(--bone)}
+:focus-visible{outline:1px solid var(--ink);outline-offset:5px}
+
+.wrap{width:min(74rem,100% - 3rem);margin-inline:auto}
+.narrow{width:min(46rem,100% - 3rem);margin-inline:auto}
+
+/* ── Type ───────────────────────────────────────────────────────────── */
+.sc{
+  font-family:var(--sans);font-weight:400;font-size:.6875rem;
+  letter-spacing:.34em;text-transform:uppercase;color:var(--ink-3);
+}
+.d1{font-family:var(--display);font-weight:400;font-size:clamp(2.7rem,6.4vw,6.4rem);line-height:1.02;letter-spacing:-.014em}
+.d2{font-family:var(--display);font-weight:400;font-size:clamp(2rem,3.6vw,3.4rem);line-height:1.1;letter-spacing:-.01em}
+.d3{font-family:var(--display);font-weight:400;font-size:clamp(1.45rem,2vw,1.95rem);line-height:1.2}
+.it{font-style:italic}
+.body{font-size:1.0625rem;color:var(--ink-2);line-height:1.78}
+.small{font-size:.875rem;color:var(--ink-3);line-height:1.7}
+
+/* the double rule — a house detail */
+.dbl{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);height:4px;width:100%}
+.hair{height:1px;background:var(--rule);width:100%}
+.mid{text-align:center}
+
+/* ── Header ─────────────────────────────────────────────────────────── */
+header{padding:2.2rem 0 1.6rem;position:relative;z-index:40}
+.house{display:flex;flex-direction:column;align-items:center;gap:1.35rem}
+.wordmark{
+  display:flex;align-items:center;gap:1rem;
+  font-family:var(--sans);font-weight:400;font-size:clamp(.95rem,1.5vw,1.15rem);
+  letter-spacing:.62em;text-indent:.62em;text-transform:uppercase;
+  transition:letter-spacing 1.6s var(--ease);
+}
+.ready .wordmark{letter-spacing:.3em;text-indent:.3em}
+.wordmark svg{width:clamp(24px,2.4vw,30px);height:auto;color:var(--ink);flex:none;
+  opacity:0;transform:translateY(-6px);transition:opacity 1s var(--ease) .35s,transform 1s var(--ease) .35s}
+.ready .wordmark svg{opacity:1;transform:none}
+nav.house-nav{display:flex;gap:clamp(1.3rem,3vw,2.6rem);flex-wrap:wrap;justify-content:center}
+nav.house-nav a{
+  font-family:var(--sans);font-weight:400;font-size:.6875rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-3);padding-bottom:.3rem;position:relative;
+  transition:color .4s var(--ease);
+}
+nav.house-nav a::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);
+  transform:scaleX(0);transform-origin:center;transition:transform .5s var(--ease);
+}
+nav.house-nav a:hover{color:var(--ink)}
+nav.house-nav a:hover::after{transform:scaleX(1)}
+
+/* ── Hero ───────────────────────────────────────────────────────────── */
+.hero{padding:clamp(4rem,11vw,9.5rem) 0 clamp(3.5rem,7vw,6rem);text-align:center}
+.rise{display:block;overflow:hidden}
+.rise>span{display:block;transform:translateY(105%);transition:transform 1.15s var(--ease)}
+.ready .rise>span{transform:translateY(0)}
+.hero .est{opacity:0;transition:opacity 1.1s ease 1.15s}
+.ready .hero .est{opacity:1}
+.hero .d1 .it{color:var(--ink)}
+.hero-lede{max-width:36rem;margin:2.4rem auto 0;opacity:0;transform:translateY(12px);
+  transition:opacity 1s var(--ease) 1.05s,transform 1s var(--ease) 1.05s}
+.ready .hero-lede{opacity:1;transform:none}
+.hero-rule{width:min(30rem,70%);margin:2.6rem auto 0;height:1px;background:var(--rule);
+  transform:scaleX(0);transition:transform 1.4s var(--ease) .9s}
+.ready .hero-rule{transform:scaleX(1)}
+
+.invite{
+  display:inline-flex;align-items:center;gap:.85rem;margin-top:2.4rem;
+  font-size:.75rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);
+  padding-bottom:.45rem;border-bottom:1px solid var(--ink);
+  opacity:0;transition:opacity 1s ease 1.35s,gap .45s var(--ease),border-color .45s ease;
+}
+.ready .invite{opacity:1}
+.invite:hover{gap:1.5rem;border-color:var(--coral)}
+.invite i{font-style:normal;transition:transform .45s var(--ease)}
+.invite:hover i{transform:translateX(3px)}
+
+/* ── Sections ───────────────────────────────────────────────────────── */
+section{padding:clamp(4.5rem,9vw,8.5rem) 0}
+.eyebrow{display:flex;align-items:center;gap:1.1rem;justify-content:center;margin-bottom:2.4rem}
+.eyebrow .hair{width:2.6rem;flex:none}
+
+/* ── Statement spread: asymmetric against a symmetric page ──────────── */
+.spread{display:grid;gap:2.2rem}
+@media(min-width:900px){.spread{grid-template-columns:13rem minmax(0,1fr);gap:4.5rem;align-items:start}}
+.spread .side{position:sticky;top:2rem}
+.spread p+p{margin-top:1.35rem}
+.drop::first-letter{
+  font-family:var(--display);font-size:3.9em;line-height:.82;float:left;
+  padding:.06em .12em 0 0;font-weight:400;color:var(--ink);
+}
+
+/* ── Roman-numeral plates ───────────────────────────────────────────── */
+.plates{display:grid;gap:0;margin-top:1rem;border-top:1px solid var(--rule)}
+.plate{
+  display:grid;gap:.7rem 3.5rem;padding:2.6rem 0;border-bottom:1px solid var(--rule-soft);
+  align-items:start;
+}
+@media(min-width:820px){.plate{grid-template-columns:5rem 15rem minmax(0,1fr)}}
+.plate .rn{font-family:var(--display);font-size:1.5rem;color:var(--ink-4);line-height:1;padding-top:.15rem;
+  transition:color .5s var(--ease)}
+.plate:hover .rn{color:var(--coral)}
+.plate h3{font-family:var(--display);font-weight:400;font-size:1.85rem;line-height:1.12;letter-spacing:-.01em}
+.plate h3 span{display:block;font-family:var(--sans);font-weight:300;font-size:.8125rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin-top:.7rem}
+.plate p{color:var(--ink-2);font-size:1rem}
+
+/* ── SIGNATURE: the cabinet — a horizontal case of work ─────────────── */
+.cabinet-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:2.2rem}
+.cabinet{
+  display:flex;gap:clamp(1.2rem,2.5vw,2.2rem);overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:.4rem clamp(1.5rem,50vw - 35rem,14rem) 2rem;margin-inline:calc(50% - 50vw);
+  scrollbar-width:none;cursor:grab;
+}
+.cabinet::-webkit-scrollbar{display:none}
+.cabinet.grabbing{cursor:grabbing}
+.case{
+  flex:0 0 clamp(16rem,29vw,23rem);scroll-snap-align:center;
+  border-top:1px solid var(--ink);padding-top:1.1rem;
+  opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease);
+}
+.case.in{opacity:1;transform:none}
+.case .no{font-family:var(--display);font-size:.9rem;color:var(--ink-4)}
+.plateimg{
+  aspect-ratio:5/6;margin-top:1.1rem;position:relative;overflow:hidden;
+  background:var(--bone-2);
+}
+/*
+  No photography exists for this work, and a repeated monogram would read as a
+  placeholder. Each plate instead carries that project's actual architecture,
+  drawn — which is more honest and more interesting than a stock image.
+*/
+.dgm{position:absolute;inset:0;width:100%;height:100%;
+  transform:scale(.985);transition:transform 1.1s var(--ease)}
+.case:hover .dgm{transform:scale(1.015)}
+.dgm .b{fill:none;stroke:var(--ink-3);stroke-width:1;vector-effect:non-scaling-stroke}
+.dgm .b.dash{stroke-dasharray:4 3}
+.dgm .fill{fill:rgba(25,22,18,.06);stroke:none}
+.dgm .k{fill:rgba(252,70,60,.55);stroke:none}
+.dgm .l{stroke:var(--ink-4);stroke-width:1;fill:none;vector-effect:non-scaling-stroke}
+.dgm .l.dash{stroke-dasharray:3 3}
+.dgm .hd{fill:var(--ink-4)}
+.dgm text{
+  font-family:var(--sans);font-weight:400;font-size:9px;letter-spacing:.13em;
+  text-transform:uppercase;fill:var(--ink-2);
+}
+.dgm text.tiny{font-size:7.5px;fill:var(--ink-3);letter-spacing:.1em}
+.plateimg .tag{
+  position:absolute;left:0;bottom:0;padding:.5rem .8rem;background:var(--bone);
+  font-size:.625rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);
+}
+.case h4{font-family:var(--display);font-weight:400;font-size:1.4rem;margin-top:1.1rem;letter-spacing:-.008em}
+.case p{font-size:.875rem;color:var(--ink-3);margin-top:.5rem;line-height:1.65}
+.case .fig{
+  font-family:var(--display);font-size:.9375rem;color:var(--ink-2);margin-top:.9rem;
+  padding-top:.7rem;border-top:1px solid var(--rule-soft);
+}
+.case .fig b{font-weight:500;color:var(--ink)}
+.cab-progress{height:1px;background:var(--rule-soft);width:min(74rem,100% - 3rem);margin:0 auto;position:relative}
+.cab-progress i{position:absolute;left:0;top:-1px;height:3px;background:var(--ink);width:22%;transition:width .1s linear,left .1s linear}
+
+/* ── Notes / provenance, set as a proper note apparatus ─────────────── */
+.notes{display:grid;gap:1.6rem}
+@media(min-width:820px){.notes{grid-template-columns:repeat(2,1fr);gap:1.6rem 3.5rem}}
+.notes div{display:grid;grid-template-columns:1.6rem minmax(0,1fr);gap:.9rem;align-items:baseline}
+.notes sup{font-family:var(--display);font-size:.9rem;color:var(--coral)}
+.notes p{font-size:.875rem;color:var(--ink-2);line-height:1.65}
+.notes b{font-weight:400;color:var(--ink);font-family:var(--display);font-size:1.05rem}
+
+/* ── Pull quote ─────────────────────────────────────────────────────── */
+.quote{background:var(--ink);color:var(--bone);text-align:center;padding:clamp(5rem,10vw,9rem) 0}
+.quote .sc{color:rgba(243,239,232,.45)}
+.quote blockquote{
+  font-family:var(--display);font-weight:400;font-size:clamp(1.7rem,3.4vw,3.05rem);
+  line-height:1.22;letter-spacing:-.012em;max-width:23ch;margin:2rem auto 0;
+}
+.quote blockquote .it{color:#fff}
+.quote .attrib{margin-top:2.4rem;font-size:.6875rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(243,239,232,.5)}
+.quote .body{color:rgba(243,239,232,.72);max-width:34rem;margin:2.4rem auto 0}
+
+/* ── Invitation ─────────────────────────────────────────────────────── */
+.close{text-align:center}
+.terms{display:grid;gap:0;margin:3rem auto 0;max-width:44rem;border-top:1px solid var(--rule)}
+.terms div{
+  display:grid;gap:.4rem 2rem;padding:1.2rem 0;border-bottom:1px solid var(--rule-soft);
+  text-align:left;
+}
+@media(min-width:640px){.terms div{grid-template-columns:9.5rem minmax(0,1fr);align-items:baseline}}
+.terms dt{font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+.terms dd{font-size:.9375rem;color:var(--ink-2)}
+
+/* ── Footer ─────────────────────────────────────────────────────────── */
+footer{padding:3.5rem 0 3rem;border-top:1px solid var(--rule)}
+.foot{display:grid;gap:2rem;text-align:center;justify-items:center}
+.foot .links{display:flex;gap:1.8rem;flex-wrap:wrap;justify-content:center}
+.foot .links a{font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);transition:color .35s ease}
+.foot .links a:hover{color:var(--ink)}
+.foot .fine{font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4)}
+
+[data-r]{opacity:0;transform:translateY(18px);transition:opacity .95s var(--ease),transform .95s var(--ease)}
+[data-r].in{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+  [data-r],.case{opacity:1!important;transform:none!important}
+  .rise>span{transform:none!important}
+  .hero-lede,.invite,.hero .est{opacity:1!important;transform:none!important}
+  .hero-rule{transform:scaleX(1)!important}
+  .wordmark{letter-spacing:.3em!important;text-indent:.3em!important}
+  .wordmark svg{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ex" viewBox="0 0 507 366"><path d="M0 0 H144 L216 72 H0 Z"/><path d="M0 147 H291 L327 183 L291 219 H0 Z"/><path d="M0 293 H216 L144 365 H0 Z"/><path d="M257 0 H504 L380.5 129 Z"/><path d="M257 365 H504 L380.5 237 Z"/></symbol></svg>
+
+<header>
+  <div class="wrap house">
+    <a class="wordmark" href="#top"><svg fill="currentColor"><use href="#ex"/></svg>Experius</a>
+    <nav class="house-nav">
+      <a href="#method">Method</a>
+      <a href="#work">Work</a>
+      <a href="#care">Care</a>
+      <a href="#invitation">Invitation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ── Hero ─────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="sc est" style="margin-bottom:2rem">Dhaka &middot; Established 2026 &middot; Working globally</p>
+      <h1 class="d1">
+        <span class="rise"><span>We build the system</span></span>
+        <span class="rise"><span>a business is <span class="it">actually</span></span></span>
+        <span class="rise"><span>run on.</span></span>
+      </h1>
+      <div class="hero-rule"></div>
+      <p class="body hero-lede">
+        Not a website. Not another tool to log into. One structure underneath the
+        whole business — where enquiries land, where the calendar lives, where the
+        record is kept — built in the right order and looked after afterwards.
+      </p>
+      <a class="invite" href="#invitation">An invitation to begin <i>&rarr;</i></a>
+    </div>
+  </section>
+
+  <!-- ── Statement ────────────────────────────────────────────────── -->
+  <section id="statement">
+    <div class="wrap">
+      <div class="spread">
+        <div class="side">
+          <p class="sc" data-r>On the nature<br>of the problem</p>
+        </div>
+        <div>
+          <h2 class="d2" data-r style="max-width:20ch">The leak is almost never where it hurts.</h2>
+          <div class="body" style="margin-top:1.8rem;max-width:40rem" data-r>
+            <p class="drop">A clinic loses bookings and concludes it needs more marketing.
+            In fact the front desk is retyping the same patient into three separate
+            places, and the enquiry that arrived at nine at night was never seen at all.
+            The money is not lost at the point of pain. It is lost three steps upstream,
+            quietly, every day, in a place nobody has thought to look.</p>
+            <p>Do the arithmetic on your own business before you read any further. Count
+            the enquiries that arrived after nine o'clock last month. Now count how many
+            received an answer before ten the next morning. That gap is not a marketing
+            number. No amount of advertising will move it, because advertising sends
+            more people into the same broken corridor.</p>
+            <p>We have yet to open an engagement where the presenting complaint turned
+            out to be the actual constraint. Not once.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Method ───────────────────────────────────────────────────── -->
+  <section id="method">
+    <div class="wrap">
+      <div class="eyebrow" data-r><span class="hair"></span><span class="sc">The method</span><span class="hair"></span></div>
+      <h2 class="d2 mid" data-r style="max-width:22ch;margin-inline:auto">Three movements, and the order is the argument.</h2>
+      <p class="body mid" data-r style="max-width:36rem;margin:1.6rem auto 0">
+        Automation applied to an undefined process does not save time. It makes the
+        mess arrive faster, and with more confidence. So it comes last, always.
+      </p>
+
+      <div class="plates">
+        <article class="plate" data-r>
+          <div class="rn">I</div>
+          <div><h3>Strategize<span>Find where it leaks</span></h3></div>
+          <p>We map how the work truly moves — where enquiries arrive, where they stall,
+          and which single step quietly costs the most. Most businesses do not have a
+          growth problem. They have a structure problem wearing a growth problem's clothes.</p>
+        </article>
+        <article class="plate" data-r>
+          <div class="rn">II</div>
+          <div><h3>Systemize<span>One place for the work</span></h3></div>
+          <p>Scattered tools are the tax. The spreadsheet-and-inbox arrangement is
+          replaced by a single spine: one place enquiries land, one calendar with real
+          availability, one record per client that every screen reads from.</p>
+        </article>
+        <article class="plate" data-r>
+          <div class="rn">III</div>
+          <div><h3>Automate<span>Off your desk entirely</span></h3></div>
+          <p>Only now does the routine work begin to run itself. Follow-ups that fire
+          without being remembered. Notifications that reach the right person. An
+          assistant that answers at two in the morning, in Bangla if that is what the
+          customer speaks.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SIGNATURE: the cabinet ───────────────────────────────────── -->
+  <section id="work" style="padding-bottom:clamp(3rem,5vw,4.5rem)">
+    <div class="wrap cabinet-head">
+      <div>
+        <p class="sc" data-r style="margin-bottom:1.1rem">Selected work</p>
+        <h2 class="d2" data-r style="max-width:16ch">Four systems, live or ready.</h2>
+      </div>
+      <p class="small" data-r style="max-width:22rem">
+        Each carries its own figures, and each figure says how it is known — measured
+        from a live system, or true by the way the thing is built. Drag to move through
+        the case.
+      </p>
+    </div>
+
+    <div class="cabinet" id="cab">
+      <article class="case">
+        <div class="no">No. 01</div>
+        <div class="plateimg">
+          <svg class="dgm" viewBox="0 0 300 360" role="img" aria-label="Storefront writes to orders and to first-party analytics; orders issue their own invoice">
+            <rect class="b" x="70" y="52" width="160" height="34"/><text x="150" y="73" text-anchor="middle">Storefront</text>
+            <line class="l" x1="150" y1="86" x2="150" y2="116"/><polygon class="hd" points="150,116 146,109 154,109"/>
+            <rect class="b" x="70" y="116" width="160" height="34"/><text x="150" y="137" text-anchor="middle">Orders</text>
+            <line class="l" x1="150" y1="150" x2="150" y2="180"/><polygon class="hd" points="150,180 146,173 154,173"/>
+            <rect class="b" x="70" y="180" width="160" height="34"/><text x="150" y="201" text-anchor="middle">Invoice</text>
+            <polyline class="l dash" points="70,69 42,69 42,265 70,265"/><polygon class="hd" points="70,265 63,261 63,269"/>
+            <rect class="b" x="70" y="248" width="160" height="34"/><text x="150" y="269" text-anchor="middle">Analytics</text>
+            <rect class="k" x="70" y="304" width="54" height="4"/>
+            <text class="tiny" x="70" y="326">First-party · 1,161 pageviews</text>
+          </svg>
+          <span class="tag">Live</span>
+        </div>
+        <h4>Noree Jewellery</h4>
+        <p>A storefront with its own order-to-invoice pipeline and first-party analytics — which is how we know precisely where it loses a sale.</p>
+        <div class="fig"><b>34%</b> of product views became carts &middot; measured 30 Jul 2026</div>
+      </article>
+      <article class="case">
+        <div class="no">No. 02</div>
+        <div class="plateimg">
+          <svg class="dgm" viewBox="0 0 300 360" role="img" aria-label="Enquiry becomes a booking, becomes a private record, which notifies a person">
+            <rect class="b" x="70" y="46" width="160" height="34"/><text x="150" y="67" text-anchor="middle">Enquiry</text>
+            <line class="l" x1="150" y1="80" x2="150" y2="106"/><polygon class="hd" points="150,106 146,99 154,99"/>
+            <rect class="b" x="70" y="106" width="160" height="34"/><text x="150" y="127" text-anchor="middle">Booking</text>
+            <line class="l" x1="150" y1="140" x2="150" y2="166"/><polygon class="hd" points="150,166 146,159 154,159"/>
+            <rect class="b" x="70" y="166" width="160" height="34"/><text x="150" y="187" text-anchor="middle">Private record</text>
+            <line class="l" x1="150" y1="200" x2="150" y2="226"/><polygon class="hd" points="150,226 146,219 154,219"/>
+            <rect class="b dash" x="70" y="226" width="160" height="34"/><text x="150" y="247" text-anchor="middle">Notify</text>
+            <rect class="k" x="70" y="286" width="54" height="4"/>
+            <text class="tiny" x="70" y="308">Unattended · around the clock</text>
+          </svg>
+          <span class="tag">Live</span>
+        </div>
+        <h4>Angel Foundation</h4>
+        <p>A charity whose entire intake ran through a Facebook inbox. It now takes its own consultation bookings, around the clock, with privacy held at the database.</p>
+        <div class="fig"><b>24/7</b> intake, unattended &middot; true by construction</div>
+      </article>
+      <article class="case">
+        <div class="no">No. 03</div>
+        <div class="plateimg">
+          <svg class="dgm" viewBox="0 0 300 360" role="img" aria-label="Individual flats reporting into one ledger that serves cash flow, budget and sales">
+            <g>
+              <rect class="fill" x="76" y="50" width="26" height="26"/><rect class="b" x="76" y="50" width="26" height="26"/>
+              <rect class="b" x="110" y="50" width="26" height="26"/>
+              <rect class="k" x="144" y="50" width="26" height="26"/><rect class="b" x="144" y="50" width="26" height="26"/>
+              <rect class="b" x="178" y="50" width="26" height="26"/>
+              <rect class="b" x="76" y="84" width="26" height="26"/>
+              <rect class="k" x="110" y="84" width="26" height="26"/><rect class="b" x="110" y="84" width="26" height="26"/>
+              <rect class="b" x="144" y="84" width="26" height="26"/>
+              <rect class="fill" x="178" y="84" width="26" height="26"/><rect class="b" x="178" y="84" width="26" height="26"/>
+              <rect class="b" x="76" y="118" width="26" height="26"/>
+              <rect class="b" x="110" y="118" width="26" height="26"/>
+              <rect class="fill" x="144" y="118" width="26" height="26"/><rect class="b" x="144" y="118" width="26" height="26"/>
+              <rect class="b" x="178" y="118" width="26" height="26"/>
+            </g>
+            <text class="tiny" x="214" y="68">Per flat</text>
+            <line class="l" x1="140" y1="144" x2="140" y2="176"/><polygon class="hd" points="140,176 136,169 144,169"/>
+            <rect class="b" x="70" y="176" width="160" height="34"/><text x="150" y="197" text-anchor="middle">One ledger</text>
+            <line class="l" x1="105" y1="210" x2="105" y2="238"/>
+            <line class="l" x1="150" y1="210" x2="150" y2="238"/>
+            <line class="l" x1="195" y1="210" x2="195" y2="238"/>
+            <text class="tiny" x="105" y="252" text-anchor="middle">Cash</text>
+            <text class="tiny" x="150" y="252" text-anchor="middle">Budget</text>
+            <text class="tiny" x="195" y="252" text-anchor="middle">Sales</text>
+            <rect class="k" x="70" y="288" width="54" height="4"/>
+            <text class="tiny" x="70" y="310">Traced to the individual flat</text>
+          </svg>
+          <span class="tag">Live</span>
+        </div>
+        <h4>Construction OS</h4>
+        <p>Where the money actually went, traced to the individual flat — cash flow, phase budgets and sales ledgers reading from one record instead of four spreadsheets.</p>
+        <div class="fig"><b>One</b> ledger for every phase &middot; true by construction</div>
+      </article>
+      <article class="case">
+        <div class="no">No. 04</div>
+        <div class="plateimg">
+          <svg class="dgm" viewBox="0 0 300 360" role="img" aria-label="A week of real availability writing to a patient record, which drives recall">
+            <g>
+              <rect class="b" x="62" y="50" width="20" height="16"/><rect class="k" x="86" y="50" width="20" height="16"/><rect class="b" x="86" y="50" width="20" height="16"/>
+              <rect class="b" x="110" y="50" width="20" height="16"/><rect class="b" x="134" y="50" width="20" height="16"/>
+              <rect class="fill" x="158" y="50" width="20" height="16"/><rect class="b" x="158" y="50" width="20" height="16"/>
+              <rect class="b" x="182" y="50" width="20" height="16"/><rect class="b" x="206" y="50" width="20" height="16"/>
+              <rect class="b" x="62" y="70" width="20" height="16"/><rect class="b" x="86" y="70" width="20" height="16"/>
+              <rect class="k" x="110" y="70" width="20" height="16"/><rect class="b" x="110" y="70" width="20" height="16"/>
+              <rect class="b" x="134" y="70" width="20" height="16"/><rect class="b" x="158" y="70" width="20" height="16"/>
+              <rect class="fill" x="182" y="70" width="20" height="16"/><rect class="b" x="182" y="70" width="20" height="16"/>
+              <rect class="b" x="206" y="70" width="20" height="16"/>
+              <rect class="b" x="62" y="90" width="20" height="16"/><rect class="b" x="86" y="90" width="20" height="16"/>
+              <rect class="b" x="110" y="90" width="20" height="16"/>
+              <rect class="k" x="134" y="90" width="20" height="16"/><rect class="b" x="134" y="90" width="20" height="16"/>
+              <rect class="b" x="158" y="90" width="20" height="16"/><rect class="b" x="182" y="90" width="20" height="16"/>
+              <rect class="b" x="206" y="90" width="20" height="16"/>
+            </g>
+            <text class="tiny" x="62" y="122">Real availability</text>
+            <line class="l" x1="144" y1="134" x2="144" y2="162"/><polygon class="hd" points="144,162 140,155 148,155"/>
+            <rect class="b" x="70" y="162" width="160" height="34"/><text x="150" y="183" text-anchor="middle">Patient record</text>
+            <line class="l" x1="144" y1="196" x2="144" y2="224"/><polygon class="hd" points="144,224 140,217 148,217"/>
+            <rect class="b dash" x="70" y="224" width="160" height="34"/><text x="150" y="245" text-anchor="middle">Recall</text>
+            <rect class="k" x="70" y="286" width="54" height="4"/>
+            <text class="tiny" x="70" y="308">Built as a product, not a one-off</text>
+          </svg>
+          <span class="tag">Ready</span>
+        </div>
+        <h4>Physio-OS</h4>
+        <p>Scheduling, patient records and recall for physiotherapy practices — built as a product because the same clinic problem kept arriving in different clothes.</p>
+        <div class="fig"><b>Deploy-ready</b> &middot; awaiting its first practice</div>
+      </article>
+    </div>
+    <div class="cab-progress"><i id="cabbar"></i></div>
+  </section>
+
+  <!-- ── Notes ────────────────────────────────────────────────────── -->
+  <section id="notes" style="padding-top:clamp(3.5rem,6vw,5.5rem)">
+    <div class="wrap">
+      <div class="eyebrow" data-r><span class="hair"></span><span class="sc">Notes on the figures</span><span class="hair"></span></div>
+      <p class="body mid" data-r style="max-width:38rem;margin:0 auto 3rem">
+        A house that sells honest measurement should be held to it. Every number we
+        publish carries its provenance, and the ones we cannot yet stand behind are
+        printed as unknown rather than rounded into shape.
+      </p>
+      <div class="notes">
+        <div data-r><sup>1</sup><p><b>Measured.</b> Read directly from the client's live database on a stated date. Noree: 245 unique visitors and 1,161 pageviews between 12 June and 30 July 2026, cookieless and first-party.</p></div>
+        <div data-r><sup>2</sup><p><b>True by construction.</b> Correct because of how the system is built rather than because it was observed — 138 products in a structured catalogue, an image payload reduced from 179.8MB to 11.5MB.</p></div>
+        <div data-r><sup>3</sup><p><b>Withheld on purpose.</b> Noree's raw order count is the client's commercial data, and a single-digit absolute would misrepresent a young store working exactly as instrumented. The ratio is the more useful number.</p></div>
+        <div data-r><sup>4</sup><p><b>Pending.</b> The fall-off between cart and completed order is the identified problem, not the solved one. It is instrumented and will be re-measured in October 2026 — printed here before it flatters us.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── The argument ─────────────────────────────────────────────── -->
+  <section id="care" class="quote">
+    <div class="wrap">
+      <p class="sc">On staying</p>
+      <blockquote>A launch is the worst the system will <span class="it">ever</span> be.</blockquote>
+      <p class="body">
+        On the day it goes live, a system has no data. Nobody yet knows which step loses
+        people, which message is ignored, or which report the owner actually opens.
+        Everything useful is learned afterwards — which is precisely when most agencies
+        leave, because they are paid to. We would rather be paid to stay. No naked
+        builds: every system ships with a care plan attached.
+      </p>
+      <p class="attrib">EXPERIUS &middot; House principle no. 1</p>
+    </div>
+  </section>
+
+  <!-- ── Invitation ───────────────────────────────────────────────── -->
+  <section id="invitation">
+    <div class="wrap close">
+      <div class="eyebrow" data-r><span class="hair"></span><span class="sc">An invitation</span><span class="hair"></span></div>
+      <h2 class="d1" data-r style="font-size:clamp(2.2rem,4.6vw,4.2rem);max-width:16ch;margin-inline:auto">Begin with the map, not the build.</h2>
+      <p class="body" data-r style="max-width:36rem;margin:1.8rem auto 0">
+        The first conversation is a working session, not a pitch. Ninety minutes, no
+        slides, and you keep what comes out of it whether or not you ever build
+        anything with us.
+      </p>
+
+      <dl class="terms" data-r>
+        <div><dt>What happens</dt><dd>We trace one real enquiry through your business, end to end, exactly as it happens today.</dd></div>
+        <div><dt>What you get</dt><dd>A one-page map of where the work leaks and what each leak is worth in a year.</dd></div>
+        <div><dt>What it costs</dt><dd>Nothing, and there is no obligation. If a build does not make sense, we will say so.</dd></div>
+        <div><dt>How many</dt><dd>A small number of engagements at a time. The care plan is the business, and it has to be honoured.</dd></div>
+      </dl>
+
+      <a class="invite" href="mailto:hello@experius.xyz" data-r style="margin-top:3rem;opacity:1">hello@experius.xyz <i>&rarr;</i></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <svg fill="currentColor" viewBox="0 0 507 366" style="width:30px;color:var(--ink)"><use href="#ex"/></svg>
+    <div class="links">
+      <a href="#method">Method</a><a href="#work">Work</a><a href="#care">Care</a>
+      <a href="#invitation">Invitation</a><a href="mailto:hello@experius.xyz">Contact</a>
+    </div>
+    <p class="fine">© 2026 Experius &middot; Dhaka &middot; Set in Bodoni Moda &amp; Jost</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ document.body.classList.add('ready'); }
+  else{
+    document.querySelectorAll('.rise > span').forEach(function(l,i){
+      l.style.transitionDelay = (0.25 + i*0.1) + 's';
+    });
+    setTimeout(function(){ document.body.classList.add('ready'); }, 80);
+  }
+
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -10% 0px',threshold:.1});
+  document.querySelectorAll('[data-r]').forEach(function(n){ io.observe(n); });
+
+  /* Cabinet: staggered entrance, drag to pan, rule tracks position. */
+  var cab = document.getElementById('cab'), bar = document.getElementById('cabbar');
+  var cases = cab.querySelectorAll('.case');
+  var cio = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      cases.forEach(function(c,i){ setTimeout(function(){ c.classList.add('in'); }, i*110); });
+      cio.disconnect();
+    });
+  },{threshold:.15});
+  cio.observe(cab);
+
+  function track(){
+    var max = cab.scrollWidth - cab.clientWidth;
+    var visible = Math.min(1, cab.clientWidth / cab.scrollWidth);
+    var p = max > 0 ? cab.scrollLeft / max : 0;
+    bar.style.width = (visible*100) + '%';
+    bar.style.left = (p * (100 - visible*100)) + '%';
+  }
+  cab.addEventListener('scroll', track, {passive:true});
+  window.addEventListener('resize', track);
+  track();
+
+  var down=false, sx=0, sl=0;
+  cab.addEventListener('pointerdown', function(e){
+    down=true; sx=e.clientX; sl=cab.scrollLeft; cab.classList.add('grabbing'); cab.setPointerCapture(e.pointerId);
+  });
+  cab.addEventListener('pointermove', function(e){
+    if(!down) return; cab.scrollLeft = sl - (e.clientX - sx);
+  });
+  ['pointerup','pointercancel'].forEach(function(ev){
+    cab.addEventListener(ev, function(){ down=false; cab.classList.remove('grabbing'); });
+  });
+})();
+</script>
+</body>
+</html>

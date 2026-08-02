@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sample D — Night Product</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#08080A; --raise:#0F0F13; --fg:#F4F4F6; --fg2:#9A9AA6; --fg3:#5E5E6B;
+  --coral:#FC463C; --line:rgba(255,255,255,.09);
+  --display:'Sora',system-ui,sans-serif; --body:'Instrument Sans',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--night);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{width:min(1200px,100% - 8vw);margin-inline:auto}
+.label{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--fg3)}
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;letter-spacing:-.035em;line-height:1}
+
+nav{position:sticky;top:0;z-index:9;background:rgba(8,8,10,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:-.02em;color:var(--fg);text-decoration:none}
+.navlinks{display:flex;gap:26px}
+.navlinks a{font-size:14px;color:var(--fg2);text-decoration:none}
+.navlinks a:hover{color:var(--fg)}
+.book{font-size:13.5px;font-weight:600;color:var(--night);background:var(--fg);padding:9px 18px;border-radius:100px;text-decoration:none}
+.book:hover{background:var(--coral);color:#fff}
+
+/* Hero — glow, oversized type, no cards */
+.hero{position:relative;padding:clamp(64px,9vw,140px) 0 clamp(48px,6vw,90px);overflow:hidden}
+.glow{position:absolute;inset:-30% 20% auto -10%;height:520px;background:radial-gradient(closest-side,rgba(252,70,60,.28),transparent 72%);filter:blur(20px);pointer-events:none}
+h1{font-size:clamp(46px,8.6vw,128px);position:relative}
+h1 .g{background:linear-gradient(96deg,var(--coral),#FF9A72);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{position:relative;font-size:clamp(17.5px,1.3vw,21px);color:var(--fg2);max-width:50ch;margin-top:30px}
+.row{position:relative;display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.cta{background:var(--coral);color:#fff;padding:14px 26px;border-radius:100px;font-weight:600;font-size:14.5px;text-decoration:none}
+.cta:hover{filter:brightness(1.1)}
+.ghost{border:1px solid var(--line);color:var(--fg);padding:14px 26px;border-radius:100px;font-weight:600;font-size:14.5px;text-decoration:none}
+.ghost:hover{border-color:var(--fg3)}
+
+/* Method — numbered rows with hairlines, no boxes */
+.method{margin-top:clamp(40px,5vw,80px)}
+.mrow{display:grid;grid-template-columns:1fr;gap:10px;padding:30px 0;border-top:1px solid var(--line)}
+@media(min-width:880px){.mrow{grid-template-columns:5rem 15rem minmax(0,1fr);gap:40px;align-items:baseline}}
+.mrow .k{font-family:var(--display);font-weight:700;font-size:19px;color:var(--coral)}
+.mrow h3{font-size:clamp(24px,2.3vw,32px)}
+.mrow p{color:var(--fg2);font-size:15.5px;max-width:52ch}
+
+/* Figures — big numerals on the dark ground */
+.figs{margin-top:clamp(56px,7vw,110px)}
+h2{font-size:clamp(34px,5vw,76px)}
+.figGrid{display:grid;grid-template-columns:1fr;gap:0;margin-top:40px}
+@media(min-width:760px){.figGrid{grid-template-columns:repeat(3,1fr)}}
+.fig{padding:32px 0;border-top:1px solid var(--line)}
+@media(min-width:760px){.fig{padding:32px 30px}.fig:first-child{padding-left:0}.fig:last-child{padding-right:0}}
+.figNum{font-family:var(--display);font-weight:700;font-size:clamp(44px,5vw,68px);line-height:1;letter-spacing:-.05em}
+.figNum sup{font-family:var(--body);font-size:14px;color:var(--coral);font-weight:600;vertical-align:super}
+.figLab{margin-top:14px;color:var(--fg2);font-size:15px;max-width:26ch}
+.tag{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--coral)}
+.notes{margin-top:28px;font-size:13.5px;color:var(--fg3);display:grid;gap:5px}
+.notes b{color:var(--coral);margin-right:8px}
+
+/* Work */
+.work{margin-top:clamp(56px,7vw,110px);padding-bottom:clamp(64px,8vw,120px)}
+.item{display:grid;grid-template-columns:1fr;gap:8px;padding:28px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+@media(min-width:840px){.item{grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:center}}
+.item h4{font-size:clamp(24px,2.8vw,40px)}
+.item:hover h4{color:var(--coral)}
+.item p{color:var(--fg2);font-size:15.5px;margin-top:8px;max-width:58ch}
+.st{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--coral)}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#"><svg width="19" viewBox="0 0 507 366" fill="currentColor"><path d="M0 0H144l72 72H0z"/><path d="M0 147h291l36 36-36 36H0z"/><path d="M0 293h216l-72 72H0z"/><path d="M257 0h247L380.5 129z"/><path d="M257 365h247L380.5 237z"/></svg>Experius</a>
+  <div class="navlinks"><a href="#">Work</a><a href="#">Products</a><a href="#">Personal Brand</a><a href="#">Partnership</a><a href="#">About</a></div>
+  <a class="book" href="#">Book a call</a>
+</div></nav>
+
+<header class="hero"><div class="glow"></div><div class="wrap">
+  <p class="label">Strategize · Systemize · Automate</p>
+  <h1 style="margin-top:22px">The system your<br>business <span class="g">runs on.</span></h1>
+  <p class="lede">Most businesses don't have a growth problem. They have six tools that don't speak to each other, and an owner acting as the integration layer between them. We build the one system underneath — then stay on and keep improving it.</p>
+  <div class="row"><a class="cta" href="#">Book a strategy call</a><a class="ghost" href="#">See the work</a></div>
+</div></header>
+
+<section class="wrap method">
+  <div class="mrow"><span class="k">01</span><h3>Strategize</h3><p>We map how work really moves — where enquiries arrive, where they stall, and which step quietly costs the most.</p></div>
+  <div class="mrow"><span class="k">02</span><h3>Systemize</h3><p>One place enquiries land, one calendar, one record per client that every screen reads from.</p></div>
+  <div class="mrow"><span class="k">03</span><h3>Automate</h3><p>Last, on purpose. Automating a process nobody has defined only makes the mess arrive faster.</p></div>
+</section>
+
+<section class="wrap figs">
+  <h2>What the record shows.</h2>
+  <div class="figGrid">
+    <div class="fig"><span class="tag">Measured</span><div class="figNum" style="margin-top:14px">245<sup>1</sup></div><p class="figLab">Unique visitors to Noree, 12 Jun – 30 Jul 2026</p></div>
+    <div class="fig"><span class="tag">Measured</span><div class="figNum" style="margin-top:14px">34%<sup>2</sup></div><p class="figLab">Product views that became add-to-carts</p></div>
+    <div class="fig"><span class="tag">By construction</span><div class="figNum" style="margin-top:14px">13<sup>3</sup></div><p class="figLab">Admin screens replacing an inbox and a paper diary</p></div>
+  </div>
+  <div class="notes">
+    <div><b>1</b>Read from the live system, 2026-07-30.</div>
+    <div><b>2</b>51 of 152 product views. Read from the live system.</div>
+    <div><b>3</b>True by construction — admin route table.</div>
+  </div>
+</section>
+
+<section class="wrap work">
+  <h2 style="margin-bottom:26px">Selected work.</h2>
+  <a class="item" href="#"><div><h4>Angel Foundation</h4><p>A charity whose entire intake ran through a Facebook inbox now takes consultation bookings itself, around the clock.</p></div><span class="st">Live</span></a>
+  <a class="item" href="#"><div><h4>Noree Jewellery</h4><p>A storefront with its own order-to-invoice pipeline and first-party analytics — which is how we know where it loses sales.</p></div><span class="st">Live</span></a>
+  <a class="item" href="#"><div><h4>Construction OS</h4><p>Where the money actually went, tracked to the individual flat — cash flow, phase budgets and sales ledgers in one system.</p></div><span class="st">Live</span></a>
+</section>
+
+</body></html>
