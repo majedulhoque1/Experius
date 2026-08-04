@@ -57,12 +57,12 @@ The promise on the site is *one page*. A visitor who has to scroll three screens
 Write to these limits:
 
 - \`headline\`: one sentence, 20 words or fewer
-- \`summary\`: two sentences, maximum
-- \`trace\`: 3 to 5 steps. Each \`step\` is a **short phrase**, not a sentence ("Enquiry arrives after hours", not "An enquiry arrives at the practice, usually after working hours have ended"). Each \`seam\` is one short line
-- \`costliest.why\`: two sentences, maximum
-- \`arithmetic\`: 1 to 2 calculations. Two is a ceiling, not a target — one sharp one is better
+- \`summary\`: **one sentence**
+- \`trace\`: 3 to 5 steps. Each \`step\` is a **short phrase**, not a sentence ("Enquiry arrives after hours", not "An enquiry arrives at the practice, usually after working hours have ended"). Each \`seam\` is **eight words or fewer**
+- \`costliest.why\`: **one sentence**
+- \`arithmetic\`: **exactly one** calculation — the sharpest one
 - \`indicated\`: 1 to 3 modules, each with one short sentence
-- \`unknowns\`: 2 to 3 items, one short line each
+- \`unknowns\`: **exactly two** items, one short line each
 - \`signals\` and \`redFlags\` in the brief: up to 3 each, one short line each
 
 Two things depend on you holding these. The response schema cannot carry the counts, so they are stated here and checked on the way back — a reply outside them is discarded whole, and the visitor has already given their name and email by that point. And every word is billed, so padding costs real money and buys nothing.

@@ -52,24 +52,26 @@ export function Analytics() {
             {!data?.topPages.length ? (
               <p style={{ color: 'var(--ink-3)', fontSize: '.85rem' }}>No pageviews in this range yet.</p>
             ) : (
-              <table className="kit-table">
-                <thead>
-                  <tr>
-                    <th>Path</th>
-                    <th>Pageviews</th>
-                    <th>Unique visitors</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.topPages.map((p) => (
-                    <tr key={p.path}>
-                      <td>{p.path}</td>
-                      <td>{p.pageviews}</td>
-                      <td>{p.unique_visitors}</td>
+              <div className="table-scroll">
+                <table className="kit-table">
+                  <thead>
+                    <tr>
+                      <th>Path</th>
+                      <th>Pageviews</th>
+                      <th>Unique visitors</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {data.topPages.map((p) => (
+                      <tr key={p.path}>
+                        <td data-label="Path">{p.path}</td>
+                        <td data-label="Pageviews">{p.pageviews}</td>
+                        <td data-label="Unique visitors">{p.unique_visitors}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
 
@@ -78,24 +80,26 @@ export function Analytics() {
             {!data?.sources.length ? (
               <p style={{ color: 'var(--ink-3)', fontSize: '.85rem' }}>No traffic in this range yet.</p>
             ) : (
-              <table className="kit-table">
-                <thead>
-                  <tr>
-                    <th>Source</th>
-                    <th>Referrer host</th>
-                    <th>Pageviews</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.sources.map((s, i) => (
-                    <tr key={i}>
-                      <td style={{ textTransform: 'capitalize' }}>{s.source}</td>
-                      <td>{s.referrer_host ?? '—'}</td>
-                      <td>{s.pageviews}</td>
+              <div className="table-scroll">
+                <table className="kit-table">
+                  <thead>
+                    <tr>
+                      <th>Source</th>
+                      <th>Referrer host</th>
+                      <th>Pageviews</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {data.sources.map((s, i) => (
+                      <tr key={i}>
+                        <td data-label="Source" style={{ textTransform: 'capitalize' }}>{s.source}</td>
+                        <td data-label="Referrer host">{s.referrer_host ?? '—'}</td>
+                        <td data-label="Pageviews">{s.pageviews}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
 
@@ -104,24 +108,26 @@ export function Analytics() {
             {!data?.countries.length ? (
               <p style={{ color: 'var(--ink-3)', fontSize: '.85rem' }}>No traffic in this range yet.</p>
             ) : (
-              <table className="kit-table">
-                <thead>
-                  <tr>
-                    <th>Country</th>
-                    <th>Pageviews</th>
-                    <th>Unique visitors</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.countries.map((c) => (
-                    <tr key={c.country}>
-                      <td>{c.country}</td>
-                      <td>{c.pageviews}</td>
-                      <td>{c.unique_visitors}</td>
+              <div className="table-scroll">
+                <table className="kit-table">
+                  <thead>
+                    <tr>
+                      <th>Country</th>
+                      <th>Pageviews</th>
+                      <th>Unique visitors</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {data.countries.map((c) => (
+                      <tr key={c.country}>
+                        <td data-label="Country">{c.country}</td>
+                        <td data-label="Pageviews">{c.pageviews}</td>
+                        <td data-label="Unique visitors">{c.unique_visitors}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
         </>

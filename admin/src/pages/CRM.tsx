@@ -42,32 +42,34 @@ export function CRM() {
       ) : contacts.length === 0 ? (
         <div className="empty">No contacts yet — they're created automatically when a booking comes in, or promoted from Submissions.</div>
       ) : (
-        <table className="kit-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Branch</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contacts.map((c) => (
-              <tr key={c.id}>
-                <td>
-                  <b>{c.name}</b>
-                </td>
-                <td>{c.phone ?? '—'}</td>
-                <td>{c.email ?? '—'}</td>
-                <td>{c.branch ?? '—'}</td>
-                <td style={{ minWidth: '16rem' }}>
-                  <NotesCell contact={c} onSave={(notes) => saveNotes({ id: c.id, notes })} />
-                </td>
+        <div className="table-scroll">
+          <table className="kit-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Branch</th>
+                <th>Notes</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {contacts.map((c) => (
+                <tr key={c.id}>
+                  <td data-label="Name">
+                    <b>{c.name}</b>
+                  </td>
+                  <td data-label="Phone">{c.phone ?? '—'}</td>
+                  <td data-label="Email">{c.email ?? '—'}</td>
+                  <td data-label="Branch">{c.branch ?? '—'}</td>
+                  <td data-label="Notes" style={{ minWidth: '16rem' }}>
+                    <NotesCell contact={c} onSave={(notes) => saveNotes({ id: c.id, notes })} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   )

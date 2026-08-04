@@ -27,55 +27,57 @@ export function Submissions() {
       ) : submissions.length === 0 ? (
         <div className="empty">No submissions yet.</div>
       ) : (
-        <table className="kit-table">
-          <thead>
-            <tr>
-              <th>When</th>
-              <th>Type</th>
-              <th>From</th>
-              <th>Message</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {submissions.map((s) => (
-              <tr key={s.id}>
-                <td style={{ whiteSpace: 'nowrap', color: 'var(--ink-3)' }}>
-                  {new Date(s.created_at).toLocaleDateString()}
-                </td>
-                <td>{s.type}</td>
-                <td>
-                  <div>
-                    <b>{s.name}</b>
-                  </div>
-                  <div style={{ color: 'var(--ink-3)', fontSize: '.8rem' }}>{s.email}{s.phone ? ` · ${s.phone}` : ''}</div>
-                  {business(s) && <div style={{ color: 'var(--ink-3)', fontSize: '.8rem' }}>{business(s)}</div>}
-                </td>
-                <td style={{ maxWidth: '22rem' }}>{s.message}</td>
-                <td>
-                  <StatusBadge label={s.status} tone={TONE[s.status]} />
-                </td>
-                <td>
-                  <div className="row-actions">
-                    {s.status !== 'contacted' && (
-                      <button className="btn small" onClick={() => setStatus({ id: s.id, status: 'contacted' })}>
-                        Mark contacted
-                      </button>
-                    )}
-                    {s.status !== 'closed' && (
-                      <button className="btn small" onClick={() => setStatus({ id: s.id, status: 'closed' })}>
-                        Close
-                      </button>
-                    )}
-                    <button className="btn small" onClick={() => convertToContact(s)}>To CRM</button>
-                    <button className="btn small danger" onClick={() => remove(s.id)}>Delete</button>
-                  </div>
-                </td>
+        <div className="table-scroll">
+          <table className="kit-table">
+            <thead>
+              <tr>
+                <th>When</th>
+                <th>Type</th>
+                <th>From</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {submissions.map((s) => (
+                <tr key={s.id}>
+                  <td data-label="When" style={{ whiteSpace: 'nowrap', color: 'var(--ink-3)' }}>
+                    {new Date(s.created_at).toLocaleDateString()}
+                  </td>
+                  <td data-label="Type">{s.type}</td>
+                  <td data-label="From">
+                    <div>
+                      <b>{s.name}</b>
+                    </div>
+                    <div style={{ color: 'var(--ink-3)', fontSize: '.8rem' }}>{s.email}{s.phone ? ` · ${s.phone}` : ''}</div>
+                    {business(s) && <div style={{ color: 'var(--ink-3)', fontSize: '.8rem' }}>{business(s)}</div>}
+                  </td>
+                  <td data-label="Message" style={{ maxWidth: '22rem' }}>{s.message}</td>
+                  <td data-label="Status">
+                    <StatusBadge label={s.status} tone={TONE[s.status]} />
+                  </td>
+                  <td>
+                    <div className="row-actions">
+                      {s.status !== 'contacted' && (
+                        <button className="btn small" onClick={() => setStatus({ id: s.id, status: 'contacted' })}>
+                          Mark contacted
+                        </button>
+                      )}
+                      {s.status !== 'closed' && (
+                        <button className="btn small" onClick={() => setStatus({ id: s.id, status: 'closed' })}>
+                          Close
+                        </button>
+                      )}
+                      <button className="btn small" onClick={() => convertToContact(s)}>To CRM</button>
+                      <button className="btn small danger" onClick={() => remove(s.id)}>Delete</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   )

@@ -17,13 +17,13 @@ import { MODULES } from './questions.js'
 const MODULE_ENUM = z.enum(MODULES)
 
 export const TraceStep = z.object({
-  step: z.string().describe("One step in this business's enquiry journey, in their words."),
+  step: z.string().describe("One step in this business's enquiry journey, in their words. A short phrase."),
   seam: z
     .string()
     .nullable()
     .describe(
       'What breaks between this step and the next — retyping, waiting, forgetting. ' +
-        'Null when the handover is clean.',
+        'Eight words or fewer. Null when the handover is clean.',
     ),
 })
 
@@ -33,12 +33,21 @@ export const TraceStep = z.object({
   output at 5x the input rate — so brevity is simultaneously the honest
   format, the cheaper one, and the one that stays clear of the token ceiling.
   Prose that pads the page costs money and buys nothing.
+
+  Tightened after the 2026-08 copy audit: the map was rendering at ~350 words
+  and four phone screens, which is not a page. `summary` and `costliest.why`
+  are one sentence each now, and the two open ranges became fixed counts —
+  the prompt already said "two is a ceiling, not a target", so the schema now
+  agrees with it instead of leaving the model room to pad.
+
+  These limits are ALSO stated in prompt.ts and re-checked in handler.ts.
+  Change one, change all three.
 */
 export const LeakMap = z.object({
   headline: z
     .string()
     .describe('One sentence naming the structural problem, 20 words or fewer. No preamble.'),
-  summary: z.string().describe('Two sentences maximum explaining what their marks add up to.'),
+  summary: z.string().describe('ONE sentence explaining what their marks add up to.'),
   trace: z
     .array(TraceStep)
     .min(3)
@@ -51,7 +60,7 @@ export const LeakMap = z.object({
     step: z.string().describe('The single step that most likely costs the most. A short phrase.'),
     why: z
       .string()
-      .describe('Two sentences maximum. State it as reasoning, not fact.'),
+      .describe('ONE sentence. State it as reasoning, not fact.'),
   }),
   arithmetic: z
     .array(
@@ -64,7 +73,8 @@ export const LeakMap = z.object({
       }),
     )
     .min(1)
-    .max(2),
+    .max(2)
+    .describe('One calculation — the sharpest one. The renderer shows the first.'),
   indicated: z
     .array(
       z.object({
@@ -75,11 +85,22 @@ export const LeakMap = z.object({
     .min(1)
     .max(3)
     .describe('Modules in the order they would pay back.'),
+  /*
+    Upper bounds here are deliberately looser than what the prompt asks for and
+    what the renderer shows. `relaxArrayBounds` in generate.ts strips every
+    maxItems before the request goes out — the gateway 400s on the key — so no
+    ceiling is ever enforced provider-side. It is only enforced here, on the way
+    back, where a violation discards the whole reply. By that point the visitor
+    has handed over their name and email and we have paid for the generation.
+
+    So: ask for the tight count in the prompt, accept one extra in the schema,
+    and cut in the renderer. Never lose a lead over an extra line.
+  */
   unknowns: z
     .array(z.string())
     .min(2)
     .max(3)
-    .describe('What this map cannot know from a short form. One short line each, specific.'),
+    .describe('Two things this map cannot know from a short form. One short line each, specific.'),
 })
 export type LeakMap = z.infer<typeof LeakMap>
 

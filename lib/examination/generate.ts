@@ -65,6 +65,14 @@ export type Usage = { input: number; output: number; cacheRead: number }
  * still enforces the full Zod schema against the parsed response afterward,
  * so a reply that ignores the prompt's stated count still fails here rather
  * than shipping malformed.
+ *
+ * `maxItems` goes unconditionally, including 1. The message only names
+ * `minItems`, but a `.length(1)` field emitting `maxItems: 1` is a hard 400
+ * from the gateway — found the day `arithmetic` was tightened to exactly one
+ * calculation. Until then every maxItems in the schema happened to be >= 2 and
+ * was already being stripped, so no request had ever carried the key and the
+ * rejection had never been triggered. Keeping the same shape for every value
+ * is what the provider actually accepts.
  */
 function relaxArrayBounds(node: unknown): unknown {
   if (Array.isArray(node)) return node.map(relaxArrayBounds)
@@ -72,7 +80,8 @@ function relaxArrayBounds(node: unknown): unknown {
   const obj = node as Record<string, unknown>
   const out: Record<string, unknown> = {}
   for (const [key, value] of Object.entries(obj)) {
-    if ((key === 'minItems' || key === 'maxItems') && typeof value === 'number' && value > 1) continue
+    if (key === 'maxItems' && typeof value === 'number') continue
+    if (key === 'minItems' && typeof value === 'number' && value > 1) continue
     out[key] = relaxArrayBounds(value)
   }
   return out

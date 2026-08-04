@@ -37,55 +37,57 @@ export function Leads() {
           for their map.
         </div>
       ) : (
-        <table className="kit-table">
-          <thead>
-            <tr>
-              <th>When</th>
-              <th>Lead</th>
-              <th>Severity</th>
-              <th>Marked</th>
-              <th>Indicated</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {examinations.map((e) => (
-              <tr key={e.id}>
-                <td style={{ whiteSpace: 'nowrap', color: 'var(--ink-3)', fontVariantNumeric: 'tabular-nums' }}>
-                  {new Date(e.created_at).toLocaleDateString()}
-                </td>
-                <td>
-                  <div>
-                    <Link
-                      to={`/leads/${e.id}`}
-                      style={{ color: 'var(--ink)', fontWeight: 600, textDecoration: 'none' }}
-                    >
-                      {e.name ?? 'Unnamed lead'}
-                    </Link>
-                  </div>
-                  <div style={{ color: 'var(--ink-3)', fontSize: '.8rem' }}>{e.email}</div>
-                </td>
-                <td>
-                  <StatusBadge label={e.severity} tone={SEVERITY_TONE[e.severity]} />
-                </td>
-                <td style={{ fontVariantNumeric: 'tabular-nums' }}>{e.marked_count}/8</td>
-                <td style={{ maxWidth: '18rem', color: 'var(--ink-3)' }}>{e.indicated.join(', ')}</td>
-                <td>
-                  <div className="row-actions">
-                    <Link className="btn small" to={`/leads/${e.id}`}>
-                      Open map
-                    </Link>
-                    {!e.handled_at && (
-                      <button className="btn small" onClick={() => markHandled(e.id)}>
-                        Mark contacted
-                      </button>
-                    )}
-                  </div>
-                </td>
+        <div className="table-scroll">
+          <table className="kit-table">
+            <thead>
+              <tr>
+                <th>When</th>
+                <th>Lead</th>
+                <th>Severity</th>
+                <th>Marked</th>
+                <th>Indicated</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {examinations.map((e) => (
+                <tr key={e.id}>
+                  <td data-label="When" style={{ whiteSpace: 'nowrap', color: 'var(--ink-3)', fontVariantNumeric: 'tabular-nums' }}>
+                    {new Date(e.created_at).toLocaleDateString()}
+                  </td>
+                  <td data-label="Lead">
+                    <div>
+                      <Link
+                        to={`/leads/${e.id}`}
+                        style={{ color: 'var(--ink)', fontWeight: 600, textDecoration: 'none' }}
+                      >
+                        {e.name ?? 'Unnamed lead'}
+                      </Link>
+                    </div>
+                    <div style={{ color: 'var(--ink-3)', fontSize: '.8rem' }}>{e.email}</div>
+                  </td>
+                  <td data-label="Severity">
+                    <StatusBadge label={e.severity} tone={SEVERITY_TONE[e.severity]} />
+                  </td>
+                  <td data-label="Marked" style={{ fontVariantNumeric: 'tabular-nums' }}>{e.marked_count}/8</td>
+                  <td data-label="Indicated" style={{ maxWidth: '18rem', color: 'var(--ink-3)' }}>{e.indicated.join(', ')}</td>
+                  <td>
+                    <div className="row-actions">
+                      <Link className="btn small" to={`/leads/${e.id}`}>
+                        Open map
+                      </Link>
+                      {!e.handled_at && (
+                        <button className="btn small" onClick={() => markHandled(e.id)}>
+                          Mark contacted
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   )
