@@ -47,7 +47,6 @@
     ['case-studies', 'Case studies', '/case-studies'],
     ['about', 'About', '/about'],
   ]
-  var NAV_ALL = NAV.concat([['contact', 'Contact', '/contact']])
 
   /* ── Module diagrams ─────────────────────────────────────────────
      One drawing language across the whole site: hairline boxes, dashed
@@ -154,9 +153,11 @@
         '</div>' +
 
         // Below 1000px the row becomes a scrollable strip rather than vanishing
-        // behind a hamburger — every destination stays one tap away.
+        // behind a hamburger — every destination stays one tap away. Contact
+        // stays out of this strip: the headcta above is already a scroll-free
+        // path to it on every breakpoint, so it never duplicates in here.
         '<div class="navstrip">' +
-        NAV_ALL.map(function (t) {
+        NAV.map(function (t) {
           return '<a class="' + (t[0] === page ? 'on' : '') + '" href="' + t[2] + '">' + t[1] + '</a>'
         }).join('') +
         '</div>' +
