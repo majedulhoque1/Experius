@@ -249,21 +249,18 @@ b,strong{font-weight:600;color:var(--ink)}
   transform:scaleX(0);transform-origin:left;z-index:2;pointer-events:none;
 }
 
-/* Small screens: the nav becomes a scrollable strip under the bar. The
-   fade signals there is more to scroll to; without it the last tab just
-   sits flush against the screen edge and reads as clipped, not scrollable. */
-.navstrip{display:flex;gap:.15rem;overflow-x:auto;scrollbar-width:none;
+/* Small screens: the nav becomes a strip of even columns under the bar —
+   every column shares the row equally, so the full set always fits the
+   screen width exactly. No scrolling, no clipped last tab, at any width. */
+.navstrip{display:flex;overflow-x:hidden;
   border-bottom:1px solid var(--line);background:var(--surface);
-  mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent 100%);
-  -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent 100%);
 }
-.navstrip::-webkit-scrollbar{display:none}
 @media(min-width:1000px){.navstrip{display:none}}
 .navstrip a{
-  font-family:var(--ui);font-size:.875rem;font-weight:500;color:var(--ink-3);
-  padding:.7rem .85rem;white-space:nowrap;border-bottom:2px solid transparent;
+  flex:1 1 0;min-width:0;text-align:center;
+  font-family:var(--ui);font-size:.8125rem;font-weight:500;color:var(--ink-3);
+  padding:.65rem .2rem;line-height:1.25;border-bottom:2px solid transparent;
 }
-.navstrip a:last-of-type{padding-right:1.5rem}
 .navstrip a.on{color:var(--ink);font-weight:600;border-bottom-color:var(--accent)}
 
 /* ── Page header ────────────────────────────────────────────────────── */

@@ -37,15 +37,18 @@
     '<path d="M257 365 H504 L380.5 237 Z"/></svg>'
 
   /*
-    Four destinations plus one standing CTA. Personal brand is a segment we
-    serve, not a destination — it lives inside Projects, because a nav row is
-    for places to go and not for things we would like you to know.
+    Five destinations, identical on every breakpoint. Personal brand is a
+    segment we serve, not a destination — it lives inside Projects, because
+    a nav row is for places to go and not for things we would like you to
+    know. Contact is a destination too, so it gets a plain nav link here —
+    "Book a call" in the header is the pushier version of the same door.
   */
   var NAV = [
     ['projects', 'Projects', '/projects'],
     ['products', 'Products', '/products'],
     ['case-studies', 'Case studies', '/case-studies'],
     ['about', 'About', '/about'],
+    ['contact', 'Contact', '/contact'],
   ]
 
   /* ── Module diagrams ─────────────────────────────────────────────
@@ -152,10 +155,9 @@
         '<a class="headcta" href="/contact">Book a call<i>&rarr;</i></a>' +
         '</div>' +
 
-        // Below 1000px the row becomes a scrollable strip rather than vanishing
-        // behind a hamburger — every destination stays one tap away. Contact
-        // stays out of this strip: the headcta above is already a scroll-free
-        // path to it on every breakpoint, so it never duplicates in here.
+        // Below 1000px the row becomes a strip rather than vanishing behind
+        // a hamburger — every destination, Contact included, stays one tap
+        // away and fits without scrolling (see .navstrip sizing in the CSS).
         '<div class="navstrip">' +
         NAV.map(function (t) {
           return '<a class="' + (t[0] === page ? 'on' : '') + '" href="' + t[2] + '">' + t[1] + '</a>'
