@@ -122,8 +122,9 @@ window.PAGE = function () {
       '<div><h2 class="d2 col">The record.</h2>' +
       '<p class="col" style="margin-top:1rem;color:var(--ink-2)">' + c.results.narrative + '</p></div></div>' +
       '<div class="figs" data-r data-figures></div>' +
-      '<p class="small" data-r style="margin-top:1.2rem;max-width:48rem;border-left:2px solid var(--accent);padding-left:1.1rem">' +
-      '<b style="font-weight:600;color:var(--ink)">Withheld or pending.</b> ' + c.withheld + '</p>' +
+      /* Withheld figures are the honesty layer, not the argument. Closed by
+         default, printed open — see the .fnote rules in site.css. */
+      '<div data-r style="margin-top:1.2rem">' + EX.fnote('Withheld or pending', c.withheld) + '</div>' +
       '<blockquote class="pullquote" data-r>' + c.quote.text + '<cite>' + c.quote.attrib + '</cite></blockquote>' +
       '<p class="lead col" data-r>' + c.conclusion + '</p>' +
     '</div></section>' +
@@ -132,8 +133,7 @@ window.PAGE = function () {
       '<div class="two">' +
       '<div><span class="typed">Next step</span>' +
       '<h2 class="d2" data-r style="max-width:14ch;margin-top:.7rem">Start with the map, not the build.</h2></div>' +
-      '<div data-r><p>The first conversation is a working session, not a pitch. Ninety minutes, ' +
-      'no slides, and you keep the map whether or not you build anything with us.</p>' +
+      '<div data-r><p>90 minutes, no slides. You keep the map either way.</p>' +
       '<div class="acts"><a class="act" href="/contact">Book the first meeting &rarr;</a></div></div>' +
       '</div>' +
     '</div></section>' +

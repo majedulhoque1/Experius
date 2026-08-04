@@ -14,7 +14,7 @@
      Booking RPCs are SECURITY DEFINER and self-validate every input, so the
      browser talks to Supabase directly here (same pattern the kit's own
      reference site uses) rather than through our own /api layer. */
-  var SUPABASE_URL = 'http://supabasekong-n1o2j37ithw1b8tqicmw7y43.76.13.179.219.sslip.io'
+  var SUPABASE_URL = 'https://db.majedulhoqueshakil.com'
   var SUPABASE_ANON_KEY =
     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NTU2NzM2MCwiZXhwIjo0OTQxMjQwOTYwLCJyb2xlIjoiYW5vbiJ9.hfzXBJxygzEP-m5ZmmJXhYtzJiByAzLorFGpj3alsA8'
 
@@ -188,6 +188,24 @@
   }
 
   /* ── Components ──────────────────────────────────────────────────── */
+
+  /*
+    A footnote. The honesty layer of this site — provenance definitions,
+    withheld figures, "this is a worked example" — used to run as body copy
+    in the main reading flow, where it cost about a tenth of every page and
+    read like a company arguing with itself.
+
+    It is all still here, one tap away. `<details>` so it works with no JS,
+    keeps keyboard and screen-reader semantics for free, and the print
+    stylesheet forces every one of them open — a printed page has no tap.
+  */
+  function fnote(label, html) {
+    return (
+      '<details class="fnote"><summary>' + (label || 'Note') + '</summary>' +
+      '<div class="fnote-b">' + html + '</div></details>'
+    )
+  }
+
   function shotFrame(shot, cls) {
     return (
       '<div class="shot ' + (cls || '') + '"><div class="bar"><i></i><i></i><span>' + shot.label + '</span></div>' +
@@ -195,34 +213,12 @@
     )
   }
 
-  /* Who this is built for. Two segments with the running system behind
-     each, and a quieter third row for the founder-led work — which is a
-     real part of the practice but not what the company is aimed at. */
-  function renderIcp(host) {
-    host.innerHTML =
-      '<div class="icp">' +
-      S.icp.map(function (s) {
-        return (
-          '<article class="icp-card">' +
-          '<div class="hd"><b>' + s.n + ' &nbsp;' + s.name + '</b><span>' + s.tag + '</span></div>' +
-          '<div class="shotwrap"><img src="' + SHOTS + s.shot + '" alt="' + s.shotAlt + '" loading="lazy"></div>' +
-          '<div class="bd"><p>' + s.lead + '</p>' +
-          '<ul>' + s.fails.map(function (f) { return '<li>' + f + '</li>' }).join('') + '</ul>' +
-          '<a class="pf" href="' + s.proof.href + '">' +
-          '<span><b>' + s.proof.v + '</b> — ' + s.proof.l + '</span>' +
-          '<span class="go">Open the file &rarr;</span></a>' +
-          '</div></article>'
-        )
-      }).join('') +
-      '</div>' +
-      '<a class="icp-wide" href="/projects#founder-led">' +
-      '<b>Founder-led brands</b>' +
-      '<p>Coaches, creators and founder-run shops whose audience is already bigger than the ' +
-      'infrastructure catching it. One live proof point — Noree Jewellery — published with its ' +
-      'numbers and its gaps.</p>' +
-      '<span class="go">Read that section &rarr;</span></a>'
-  }
-
+  /*
+    A plate is a rail card, not a case study. It used to carry the summary and
+    the headline figure as well — both of which appear again within one screen
+    of it, in the figure grid and on /case-studies. A rail's job is to be
+    scanned; the file behind it is where the words live.
+  */
   function plate(c) {
     var art = c.shots.length
       ? shotFrame({ src: c.shots[0].src, label: c.shots[0].label }, 'tall')
@@ -233,9 +229,7 @@
       '<span class="no"><span>No. ' + c.letter + '</span><span class="tag">' + c.status + '</span></span>' +
       art +
       '<h3>' + c.name + '</h3><span class="kind">' + c.clientKind + '</span>' +
-      '<p>' + c.summary + '</p>' +
-      '<span class="fig"><span><b>' + c.headlineFig.v + '</b> ' + c.headlineFig.l + '</span>' +
-      '<span class="go">Open file &rarr;</span></span></a>'
+      '<span class="fig"><span class="go">Open file &rarr;</span></span></a>'
     )
   }
 
@@ -262,12 +256,25 @@
     The seam diagram. Rendered as HTML rather than SVG so the type is real text
     at real sizes — the previous node-and-arrow drawing was unreadable because
     every label was 9px inside a viewBox.
+
+    Every `gap` is six words or fewer. The clock and the hand-off count are the
+    argument; a sentence under each row was commentary on a picture that
+    already speaks. `clock` is the cell the scroll-scrub counts up (see
+    seamClock in motion()) — it renders at its final value so no-JS and
+    reduced-motion both land somewhere true.
   */
+  function fmtClock(n, unit, suffix) {
+    if (unit === 'min') {
+      return n < 60 ? n + 'm' : Math.floor(n / 60) + 'h ' + (n % 60) + 'm'
+    }
+    return n + (suffix || '')
+  }
+
   function seamPanel(d, good) {
     var rows = d.rows
-      .map(function (r) {
+      .map(function (r, i) {
         return (
-          '<li><span class="at">' + r.at + '</span>' +
+          '<li data-i="' + i + '"><span class="at">' + r.at + '</span>' +
           '<span class="spine"><i class="dot"></i></span>' +
           '<span class="body"><span class="step">' + r.step + '</span>' +
           '<span class="gap"><i class="mk">' + (good ? '✓' : '✕') + '</i><span>' + r.gap + '</span></span>' +
@@ -275,6 +282,12 @@
         )
       })
       .join('')
+    var c = d.clock
+    var clock = c
+      ? '<div class="tl-clock"><span>' + c.label + '</span>' +
+        '<b data-clock="' + c.to + '" data-unit="' + c.unit + '" data-suffix="' + (c.suffix || '') + '">' +
+        fmtClock(c.to, c.unit, c.suffix) + '</b></div>'
+      : ''
     var meta = d.meta
       .map(function (m) {
         return '<div><span>' + m[0] + '</span><b>' + m[1] + '</b></div>'
@@ -284,8 +297,9 @@
       '<div class="seam' + (good ? ' good' : '') + '">' +
       '<div class="cap"><h4>' + d.title + '</h4><span>' + d.note + '</span></div>' +
       '<ol class="tl">' + rows + '</ol>' +
+      clock +
       '<div class="tl-meta">' + meta + '</div>' +
-      '<p class="out"><b>Result.</b> ' + d.out + '</p>' +
+      '<p class="out">' + d.out + '</p>' +
       '</div>'
     )
   }
@@ -294,8 +308,13 @@
     host.innerHTML =
       seamPanel(data.today, false) +
       seamPanel(data.after, true) +
-      '<p class="seam-note">A worked example, not a measured client figure — every other number ' +
-      'on this site carries its provenance, so this one says what it is.</p>'
+      '<div class="seam-note">' +
+      fnote(
+        'Where these times come from',
+        'A worked example, not a measured client figure. Every other number on this ' +
+          'site carries its provenance, so this one says what it is.',
+      ) +
+      '</div>'
   }
 
   var STATUS_CLASS = { Live: 'live', Ready: 'ready', 'In use': 'inuse' }
@@ -311,9 +330,11 @@
           var thumb = c.shots.length
             ? '<img src="' + SHOTS + c.shots[0].src + '" alt="' + c.name + '" loading="lazy">'
             : '<span class="noimg">Internal</span>'
+          /* Name and status only. The rail sits in the hero, where every extra
+             word competes with the headline; the kind is on the plate below. */
           return (
             '<a class="lp-row" href="/case?id=' + c.slug + '">' + thumb +
-            '<span class="nm">' + c.name + '<em>' + c.clientKind + '</em></span>' +
+            '<span class="nm">' + c.name + '</span>' +
             '<span class="st ' + (STATUS_CLASS[c.status] || '') + '">' + c.status + '</span></a>'
           )
         })
@@ -322,16 +343,31 @@
   }
 
   var SRC_LABEL = { measured: 'Measured', construction: 'By construction', pending: 'Pending' }
-  function renderFigures(host, metrics) {
-    host.innerHTML = metrics
-      .map(function (m) {
-        return (
-          '<div class="fig-cell' + (m.s === 'pending' ? ' pending' : '') + '">' +
-          '<span class="v">' + m.v + '</span><p>' + m.l + '</p>' +
-          '<span class="src' + (m.s === 'measured' ? ' m' : '') + '">' + SRC_LABEL[m.s] + ' · ' + m.src + '</span></div>'
-        )
-      })
-      .join('')
+
+  /* What the three provenance words mean. This was 65 words of body copy under
+     a headline that had already made the point; it is a footnote now. The
+     chip on every figure is the part that has to be visible. */
+  var PROVENANCE_NOTE =
+    '<b>Measured</b> — read from a live database on the stated date. ' +
+    '<b>By construction</b> — true because of how the system is built. ' +
+    '<b>Pending</b> — instrumented, not yet meaningful. We print it rather than round it up.'
+
+  function renderFigures(host, metrics, legend) {
+    host.innerHTML =
+      metrics
+        .map(function (m) {
+          /* A figure that is itself a percentage gets a proportional bar
+             under the number — free once, applies everywhere a % appears. */
+          var pct = /^(\d{1,3})%$/.exec(m.v)
+          var bar = pct ? '<span class="fig-bar"><i style="width:' + pct[1] + '%"></i></span>' : ''
+          return (
+            '<div class="fig-cell' + (m.s === 'pending' ? ' pending' : '') + '">' +
+            '<span class="v fignum">' + m.v + '</span>' + bar + '<p>' + m.l + '</p>' +
+            '<span class="src' + (m.s === 'measured' ? ' m' : '') + '">' + SRC_LABEL[m.s] + ' · ' + m.src + '</span></div>'
+          )
+        })
+        .join('') +
+      (legend ? '<div class="fig-legend">' + fnote('What these three words mean', PROVENANCE_NOTE) + '</div>' : '')
   }
 
   function renderExhibits(host, ids) {
@@ -364,8 +400,7 @@
       // the generic .typed label is dark ink and would vanish here.
       '<div class="exam-head"><span class="lbl">Examine your business — 8 questions</span>' +
       '<span class="count" id="counter">0 of 8 marked</span></div>' +
-      '<p class="exam-teaser">Tick what is true — mark enough of these and we will draw you ' +
-      'a free one-page map of where the work leaks.</p>' +
+      '<p class="exam-teaser">Tick what is true. We draw you a free one-page map.</p>' +
       '<div class="exam-body"><div id="qs">' +
       E.questions
         .map(function (q) {
@@ -375,15 +410,15 @@
           )
         })
         .join('') +
-      '<div class="examother"><label for="examOther">Something else entirely?</label>' +
-      '<textarea id="examOther" rows="2" placeholder="Tell us in your own words — e.g. we&#8217;re ' +
-      'drowning in WhatsApp messages and nobody owns them."></textarea></div>' +
+      '<div class="examother"><label for="examOther">Something else?</label>' +
+      '<textarea id="examOther" rows="2" placeholder="In your own words &mdash; e.g. we&#8217;re ' +
+      'drowning in WhatsApp and nobody owns it."></textarea></div>' +
       '</div><aside class="finding"><span class="typed">Preliminary finding</span>' +
       '<div class="gauge"><i id="gauge"></i></div>' +
       '<p class="verdict" id="verdict"></p><p class="detail" id="detail"></p>' +
       '<div class="indicated" id="indicated" hidden><span class="typed">Indicated modules</span>' +
       '<div class="chips" id="chips"></div></div></aside></div>' +
-      '<div class="exam-foot"><span class="typed">Nothing is submitted or stored — this runs entirely in your browser.</span></div>'
+      '<div class="exam-foot"><span class="typed">Runs in your browser. Nothing stored.</span></div>'
 
     var boxes = [].slice.call(host.querySelectorAll('#qs input'))
     var otherEl = host.querySelector('#examOther')
@@ -405,9 +440,8 @@
       marked.forEach(function (b) { if (mods.indexOf(b.dataset.mod) === -1) mods.push(b.dataset.mod) })
 
       if (!n && otherText()) {
-        verdict.textContent = 'Got it — you can also tick anything above that is true.'
-        detail.textContent = 'The map below will work from what you just told us, even with ' +
-          'nothing ticked. Marking a statement too gives it more to go on.'
+        verdict.textContent = 'Got it.'
+        detail.textContent = 'The map works from that alone. Ticking anything true above gives it more to go on.'
       } else {
         verdict.textContent = E.verdicts[n].v
         detail.textContent = E.verdicts[n].d
@@ -460,29 +494,26 @@
       { question: 'Who currently retypes a booking into the calendar?',
         placeholder: 'The front desk, usually in the evening' },
     ]
+    /* Shapes must match lib/examination/schema.ts exactly — one arithmetic,
+       two unknowns, single-sentence summary and `why`. */
     var DEMO_MAP = {
       headline: 'Your enquiries survive the first hour and lose the next fourteen.',
-      summary: 'You marked three joins that a person carries by hand. None of them is a ' +
-        'discipline problem — each is a place where information has to be moved between ' +
-        'two tools that could be reading from the same record.',
+      summary: 'You marked three joins that a person carries by hand, each one a place ' +
+        'where information moves between two tools that could read from the same record.',
       trace: [
-        { step: 'An enquiry arrives in the evening', seam: 'Nobody sees it until the morning.' },
-        { step: 'You reply by message the next day', seam: 'Their details are retyped into the calendar.' },
-        { step: 'The booking is written down', seam: 'Nothing records where this enquiry came from.' },
+        { step: 'An enquiry arrives in the evening', seam: 'Nobody sees it until morning.' },
+        { step: 'You reply by message the next day', seam: 'Details retyped into the calendar.' },
+        { step: 'The booking is written down', seam: 'Nothing records where it came from.' },
         { step: 'The appointment happens', seam: null },
       ],
       costliest: {
         step: 'The overnight gap between arrival and reply',
-        why: 'On these answers it is the only step where you lose people before ever ' +
-          'speaking to them. Everything downstream costs time; this one costs the patient.',
+        why: 'On these answers it is the only step where you lose people before ever speaking to them.',
       },
       arithmetic: [
         { label: 'What the overnight gap is worth',
           formula: '(enquiries arriving after 9pm last month) x (your close rate) x (average job value)',
-          note: 'Your messaging app will show the timestamps. Run it for one month first.' },
-        { label: 'What the retyping costs',
-          formula: '(bookings per week) x (minutes to retype one) x 52 / 60',
-          note: 'Gives hours per year. Compare it against what an hour of your time is worth.' },
+          note: 'Your messaging app will show the timestamps.' },
       ],
       indicated: [
         { module: 'AI Chatbots', because: 'You marked that after-hours enquiries wait until morning.' },
@@ -491,7 +522,6 @@
       ],
       unknowns: [
         'Whether the after-hours enquiries are price shoppers or serious buyers',
-        'How many enquiries never arrive at all because the website cannot take one',
         'Whether the retyping is five minutes or twenty-five',
       ],
     }
@@ -516,8 +546,7 @@
     function offer() {
       stage.innerHTML =
         '<div class="mapcta"><div><h4>Want the map now?</h4>' +
-        '<p>Two more questions and we will draw where your work leaks — the same ' +
-        'one-page map you would leave the first meeting with. It is yours either way.</p></div>' +
+        '<p>Two more questions and we draw where your work leaks. Yours either way.</p></div>' +
         '<button class="act red" type="button">Draw my map &rarr;</button></div>'
       stage.querySelector('button').addEventListener('click', askFollowUps)
     }
@@ -530,12 +559,11 @@
        result. Say what is true and point at the meeting. */
     function degrade(reason) {
       var why = reason === 'rate'
-        ? 'You have run this a few times already. The map is still yours — just ask for it.'
+        ? 'You have run this a few times. The map is still yours — just ask.'
         : 'The map is drawn by hand at the moment.'
       stage.innerHTML =
         '<div class="mapcta"><div><h4>Come and get the full map</h4>' +
-        '<p>' + why + ' Ninety minutes, no slides, and you keep it whether or ' +
-        'not you build anything with us.</p></div>' +
+        '<p>' + why + ' 90 minutes, no slides, and you keep it either way.</p></div>' +
         '<a class="act red" href="/contact">Book the first meeting &rarr;</a></div>'
     }
 
@@ -549,8 +577,7 @@
         // step of its own — one wall between them and the map, not two.
         stage.innerHTML =
           '<div class="mapform"><h4>A few more, then the map.</h4>' +
-          '<p class="mapform-note">Rough answers are fine. Skip any of the first ones and ' +
-          'the map will say what it could not know.</p>' +
+          '<p class="mapform-note">Rough answers are fine. Skip any — the map says what it could not know.</p>' +
           res.followUps.map(function (q, i) {
             return '<label class="mapq"><span>' + q.question + '</span>' +
               '<input type="text" data-fq="' + i + '" placeholder="' +
@@ -564,8 +591,8 @@
           '</div>' +
           '<p class="maperr" hidden></p>' +
           '<button class="act red" type="button">Draw the map &rarr;</button>' +
-          '<p class="mapform-note" style="margin-top:.9rem">We email you the map and keep a copy. ' +
-          'No list, no sequence, no sharing it with anyone.</p></div>'
+          '<p class="mapform-note" style="margin-top:.9rem">We email it and keep a copy. ' +
+          'No list, no sequence, no sharing.</p></div>'
 
         var inputs = [].slice.call(stage.querySelectorAll('[data-fq]'))
         var nameEl = stage.querySelector('[data-id="name"]')
@@ -613,17 +640,26 @@
       })
     }
 
+    /*
+      The site promises a ONE-PAGE map. This used to render at ~350 words and
+      four phone screens, most of it framing: five sentence-length headings
+      and two notes explaining things the content already shows. A formula
+      made of variables does not need a paragraph saying we cannot know your
+      numbers — that is visible in the formula.
+
+      Headings are labels now. The prose that survives is the model's.
+    */
     function render(m) {
       stage.innerHTML =
         '<article class="leakmap">' +
         '<div class="lm-head"><span class="typed">' + (DEMO ? 'Sample map' : 'Your map') + '</span>' +
-        '<span class="typed">' + (DEMO ? 'Worked example, not generated' : 'Drawn from your answers') + ' &middot; ' +
+        '<span class="typed">' + (DEMO ? 'Worked example' : 'From your answers') + ' &middot; ' +
         new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) +
         '</span></div>' +
         '<h3 class="lm-headline">' + esc(m.headline) + '</h3>' +
         '<p class="lm-summary">' + esc(m.summary) + '</p>' +
 
-        '<div class="lm-section"><h4>How an enquiry moves through your business today</h4>' +
+        '<div class="lm-section"><h4>Today</h4>' +
         '<ol class="tl">' + m.trace.map(function (t) {
           return '<li><span class="at"></span><span class="spine"><i class="dot"></i></span>' +
             '<span class="body"><span class="step">' + esc(t.step) + '</span>' +
@@ -631,26 +667,28 @@
             '</span></li>'
         }).join('') + '</ol></div>' +
 
-        '<div class="lm-section lm-costliest"><h4>The step that most likely costs the most</h4>' +
+        '<div class="lm-section lm-costliest"><h4>Costliest step</h4>' +
         '<p class="lm-step">' + esc(m.costliest.step) + '</p>' +
         '<p>' + esc(m.costliest.why) + '</p></div>' +
 
-        '<div class="lm-section"><h4>What it would be worth finding out</h4>' +
-        '<p class="lm-note">We cannot know your numbers, so these are yours to run. ' +
-        'Each one takes a few minutes with your own records.</p>' +
-        m.arithmetic.map(function (a) {
+        /* One calculation, even when the model sends two — same reason as
+           `unknowns` below: the schema stays tolerant so an extra item cannot
+           discard a map the visitor has already paid for with their details. */
+        '<div class="lm-section"><h4>Worth knowing</h4>' +
+        m.arithmetic.slice(0, 1).map(function (a) {
           return '<div class="lm-sum"><b>' + esc(a.label) + '</b>' +
             '<code>' + esc(a.formula) + '</code><span>' + esc(a.note) + '</span></div>'
         }).join('') + '</div>' +
 
-        '<div class="lm-section"><h4>What we would build, in this order</h4>' +
+        '<div class="lm-section"><h4>Build order</h4>' +
         '<ol class="lm-modules">' + m.indicated.map(function (i) {
           return '<li><b>' + esc(i.module) + '</b><span>' + esc(i.because) + '</span></li>'
         }).join('') + '</ol></div>' +
 
-        '<div class="lm-section lm-unknowns"><h4>What this map cannot know</h4>' +
-        '<ul>' + m.unknowns.map(function (u) { return '<li>' + esc(u) + '</li>' }).join('') + '</ul>' +
-        '<p class="lm-note">Eight questions is a narrow window. The meeting is where these get answered.</p></div>' +
+        /* Two, even when the model sends three — the schema stays tolerant on
+           the way back so a third line cannot discard a paid-for map. */
+        '<div class="lm-section lm-unknowns"><h4>Not known</h4>' +
+        '<ul>' + m.unknowns.slice(0, 2).map(function (u) { return '<li>' + esc(u) + '</li>' }).join('') + '</ul></div>' +
 
         '<div class="lm-foot"><a class="act red" href="/contact">Take this into a working session &rarr;</a>' +
         '<button class="act" type="button" onclick="window.print()">Print or save as PDF</button></div>' +
@@ -983,6 +1021,78 @@
   }
 
   /* ── Motion ──────────────────────────────────────────────────────── */
+  /*
+    The signature moment. As a seam panel scrolls through the viewport its rows
+    arrive one at a time and the clock cell counts up with them — 0 to 13h 21m
+    on the left, 0 to 2m on the right. The collapse between those two numbers
+    is the entire argument of this company, and it now makes it without a
+    paragraph underneath.
+
+    Scroll-driven rather than a one-shot animation, so the visitor controls it
+    and can run it back. Same passive-listener shape as the .cab-rail tracker
+    below; this is a zero-dependency static build and stays that way.
+  */
+  function seamClock() {
+    var panels = [].slice.call(document.querySelectorAll('.seam'))
+    if (!panels.length) return
+
+    var live = panels.map(function (p) {
+      return {
+        el: p,
+        rows: [].slice.call(p.querySelectorAll('.tl > li')),
+        clock: p.querySelector('[data-clock]'),
+        peak: -1,
+      }
+    })
+
+    // Reduced motion: everything at its final value, no scroll handler at all.
+    if (reduce) {
+      live.forEach(function (p) { p.rows.forEach(function (r) { r.classList.add('lit') }) })
+      return
+    }
+
+    /*
+      Monotonic on purpose. The scrub runs as you come down the page, but the
+      clock never counts back down — scrolling up to re-read the headline must
+      not leave "0m" sitting where the payoff was, and a full-page screenshot
+      or a print taken after a read has to show the real figure. It only ever
+      rises to its true value and stays there.
+    */
+    function paint() {
+      live.forEach(function (p) {
+        var b = p.el.getBoundingClientRect()
+        // 0 when the panel's top reaches the lower third, 1 once it has risen
+        // by its own height. Clamped, so a short panel still completes.
+        var span = Math.max(b.height, 1)
+        var t = Math.min(1, Math.max(0, (innerHeight * 0.72 - b.top) / span))
+        if (t <= p.peak) return
+        p.peak = t
+
+        var n = p.rows.length
+        p.rows.forEach(function (r, i) {
+          if (t >= (i + 0.35) / n) r.classList.add('lit')
+        })
+        if (!p.clock) return
+        var to = +p.clock.dataset.clock
+        p.clock.textContent = fmtClock(
+          Math.round(to * t),
+          p.clock.dataset.unit,
+          p.clock.dataset.suffix,
+        )
+      })
+    }
+
+    var queued = false
+    function onScroll() {
+      if (queued) return
+      queued = true
+      requestAnimationFrame(function () { queued = false; paint() })
+    }
+    addEventListener('scroll', onScroll, { passive: true })
+    addEventListener('resize', onScroll)
+    paint()
+  }
+
   function motion() {
     if (reduce) { document.body.classList.add('ready') }
     else {
@@ -1001,6 +1111,8 @@
       { rootMargin: '0px 0px -10% 0px', threshold: 0.08 },
     )
     document.querySelectorAll('[data-r]').forEach(function (n) { io.observe(n) })
+
+    seamClock()
 
     var cab = document.querySelector('.cabinet')
     if (!cab) return
@@ -1089,9 +1201,9 @@
 
   window.EX = { chrome: chrome, renderCabinet: renderCabinet, renderModules: renderModules,
     renderFigures: renderFigures, renderExhibits: renderExhibits, examination: examination,
-    renderSeams: renderSeams, renderLive: renderLive, renderIcp: renderIcp,
+    renderSeams: renderSeams, renderLive: renderLive,
     inquiryForm: inquiryForm, bookingWidget: bookingWidget,
-    shotFrame: shotFrame, svg: svg, motion: motion, SHOTS: SHOTS }
+    shotFrame: shotFrame, svg: svg, motion: motion, fnote: fnote, SHOTS: SHOTS }
 
   document.addEventListener('DOMContentLoaded', function () {
     chrome()
